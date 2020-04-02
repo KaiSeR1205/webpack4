@@ -1,35 +1,34 @@
 <template>
-  <div style="height:100%;position:relative" :id="basciConfig.ref">
-    <!-- 是否显示刷新按钮 默认调用事件为 刷新当前页-->
-    <div v-if="basciConfig.refresh" @click.stop="handleCurrentChange(basciPagination.currentPage)" class="el-table-refresh"><i class="el-icon-refresh"></i></div>
+  <div style="height:100%" :id="basciConfig.ref">
     <el-table
       :ref="basciConfig.ref"
-      :stripe="basciConfig.stripe"
-      :highlight-current-row="typeof(basciConfig.highlightCurrentRow)=='undefined'?true:basciConfig.highlightCurrentRow"
+      :highlight-current-row="basciConfig.highlightCurrentRow"
       :row-class-name="rowClassName"
       :cell-class-name="basciConfig.cellClassName"
-      :empty-text="basciConfig.emptyText"
       :span-method="basciConfig.spanMethod"
+      :stripe="basciConfig.stripe"
+      :empty-text="basciConfig.emptyText"
       v-loading="basciConfig.loading"
       @row-dblclick="rowDbClick"
+      @cell-dblclick="cellDblClick"
+      @expand-change="expandChange"
       @row-click="rowClick"
+      @cell-click="cellClick"
       @sort-change="sortChange"
       @select="select"
       @select-all="selectAll"
-      @expand-change="expandChange"
-      @cell-dblclick="cellDblclick"
-      @cell-click="cellclick"
       :default-sort="basciConfig.defaultSort"
       :data="basciConfig.data"
       :sort-orders="sortOrders"
       :height="basciConfig.height"
+      :max-height="basciConfig.maxHeight"
       :width="basciConfig.width"
       :border="basciConfig.border"
       :header-cell-style="basciConfig.headerCellStyle"
       :header-row-style="basciConfig.headerRowStyle"
       :style="basciConfig.style"
     >
-      <slot :name="basciConfig.slot"></slot>
+      <slot :name="basciConfig.columnSlot"></slot>
       <el-table-column
         v-for="(item,index) in basciConfig.columns"
         :key="index"
@@ -45,12 +44,10 @@
         :sortable="item.sortable"
         :sort-orders="sortOrders"
         :formatter="item.formatter"
-        :render-header="item.renderHeader"
-      > 
-      </el-table-column>
+      ></el-table-column>
     </el-table>
     <el-pagination
-      v-if="typeof(basciPagination.show)=='undefined'?true:basciPagination.show"
+      v-if="basciPagination.show"
       :ref="basciPagination.ref"
       :background="basciPagination.background"
       :style="basciPagination.style"
@@ -63,17 +60,25 @@
       :layout="basciPagination.layout"
       :total="basciPagination.total"
     >
-
-    <span>
-      <ul class="el-pager">
-        <li class="number active">{{basciPagination.currentPage}}</li>
-      </ul>
+      <span style="position:relative">
+        <span class="pagination_first">
+          <el-link
+            :disabled="pagination.currentPage==1"
+            :underline="false"
+            type="primary"
+            @click="jumpFirst"
+          >首页</el-link>
+        </span>
+        <span>
+          <ul class="el-pager">
+            <li class="number active">{{basciPagination.currentPage}}</li>
+          </ul>
+        </span>
       </span>
-
     </el-pagination>
   </div>
 </template>
-<script> 
+<script>
 var self = {};
 export default {
   name: "basci-grid",
@@ -87,13 +92,12 @@ export default {
       }
     } //分页栏配置
   },
-  //template:template,
   methods: {
     /*
-        1.修复表头最后的gutter的背景色和表头一致 让列头不出现滚动条的宽度
-        2.表头最后一列的右边框置none
-        3.修复elementui table列设置 resizable false 后还可以拖动的Bug
-    */
+                1.修复表头最后的gutter的背景色和表头一致 让列头不出现滚动条的宽度
+                2.表头最后一列的右边框置none
+                3.修复elementui table列设置 resizable false 后还可以拖动的Bug
+            */
     headerColumsRepair: function() {
       var el = this.$refs[this.basciConfig.ref].$el;
       var headColums = el.getElementsByClassName("is-leaf");
@@ -111,6 +115,7 @@ export default {
 
       var tableHeader = this.$refs[this.basciConfig.ref].$refs.tableHeader;
       var handleMouseDown = tableHeader.handleMouseDown;
+
       tableHeader.handleMouseDown = function(e, t) {
         if (!t.resizable) {
           return false;
@@ -129,21 +134,27 @@ export default {
       this.basciConfig = Object.assign({}, this.basciConfig, this.config);
 
       /** elementui  2.13.0 版本修复了 挂载组件默认执行排序的bug
-            if(this.basciConfig.defaultSort) {
-                this.isDefaultSortLoad = true
-            }
-      */
+                    if(this.basciConfig.defaultSort) {
+                        this.isDefaultSortLoad = true
+                    }
+                */
+      //如果定义了分页栏layout 的slot 那么就固定一种格式 prev, slot, next
+      if (
+        this.basciPagination.layout &&
+        this.basciPagination.layout.indexOf("slot") != -1
+      ) {
+        this.basciPagination.layout = "prev, slot, next";
+      }
 
       //最后一列不让拖拽
-      if(this.basciConfig.columns.length>0){
+      if (this.basciConfig.columns.length > 0) {
         this.basciConfig.columns[
           this.basciConfig.columns.length - 1
         ].resizable = false;
       }
 
-
       this.basciPagination.total =
-        this.basciPagination.total || this.basciPagination.pageSize * 99;
+        this.basciPagination.total || this.basciPagination.pageSize;
 
       this.$set(this.pagination, "total", this.basciPagination.total);
 
@@ -151,7 +162,13 @@ export default {
 
       this.basciConfig.selectRows = this.config.selectRows = [];
 
-      this.config.showLoading = this.showLoading;
+      this.basciConfig.showLoading = this.config.showLoading = this.showLoading;
+
+      this.basciConfig.updateScrollbar = this.config.updateScrollbar = this.updateScrollbar;
+
+      this.basciConfig.updateSyncPostion = this.config.updateSyncPostion = this.updateSyncPostion;
+
+      //this.basciConfig.showLoading =  this.showLoading
 
       this.config.setSingleDefault = this.setSingleDefault;
 
@@ -159,7 +176,11 @@ export default {
 
       this.config.beforeSort = {};
 
-      if (this.basciConfig.defaultSort && this.basciConfig.defaultSort.prop && this.basciConfig.defaultSort.order ) {
+      if (
+        this.basciConfig.defaultSort &&
+        this.basciConfig.defaultSort.prop &&
+        this.basciConfig.defaultSort.order
+      ) {
         this.config.sort = this.basciConfig.sort = {
           column: this.basciConfig.defaultSort.prop,
           order: this.basciConfig.defaultSort.order
@@ -172,17 +193,8 @@ export default {
           order: this.basciConfig.defaultSort.order
         };
       } else {
-        this.config.sort = this.basciConfig.sort = {};
+        this.config.sort = this.basciConfig.sort = { column: "", order: "" };
       }
-    },
-    cellclick:function(row, column, cell, event){
-      this.$emit("cell_click",row, column, cell, event);
-    },
-    cellDblclick:function(row, column, cell, event){
-      this.$emit("cell_dblclick",row, column, cell, event);
-    },
-    expandChange:function(row,expandedRows){
-      this.$emit("expand_change", row, expandedRows);
     },
     //分页pageSize 改变时会触发 变更后 页码从1开始
     handleSizeChange: function(val) {
@@ -236,7 +248,6 @@ export default {
     },
     //分页页码变动事件
     handleCurrentChange: function(pageIndex) {
-
       this.basciConfig.selectRows = this.config.selectRows = [];
 
       this.clearSelection();
@@ -252,6 +263,18 @@ export default {
     //行记录双击事件
     rowDbClick: function(row, column, event) {
       this.$emit("row-dbclick", row, column, event);
+    },
+    //列双击点击事件
+    cellDblClick: function(row, column, cell, event) {
+      this.$emit("cell-dbclick", row, column, event);
+    },
+    //列单击事件
+    cellClick: function(row, column, cell, event) {
+      this.$emit("cell-click", row, column, event);
+    },
+    //展开行事件
+    expandChange: function(row, expandedRows) {
+      this.$emit("expand_change", row, expandedRows);
     },
     //行记录单击事件
     rowClick: function(row, column, event) {
@@ -314,21 +337,23 @@ export default {
             this.$refs[this.basciConfig.ref].setCurrentRow(row);
           }
         }
+      } else {
+        this.basciConfig.selectRows = this.config.selectRows = [row];
       }
       this.$emit("row-click", row, column, event);
     },
     //排序事件
     sortChange: function(column) {
       /*  elementui  2.13.0 版本修复了 挂载组件默认执行排序的bug
-            if(this.isDefaultSortLoad){
-                this.isDefaultSortLoad = false
-                return
-            } 
-      */
+                    if(this.isDefaultSortLoad){
+                        this.isDefaultSortLoad = false
+                        return
+                    } 
+                */
 
       /*
-        重复点击当前排序列的时候取消设置排序order为null的设定,当前排序列的order取反
-      */
+                重复点击当前排序列的时候取消设置排序order为null的设定,当前排序列的order取反
+                */
       this.basciPagination.disabled = this.pagination.disabled = true;
 
       this.basciConfig.loading = this.config.loading || true;
@@ -391,9 +416,9 @@ export default {
     },
     //显示隐藏加载loading
     showLoading: function(flag) {
-      this.$nextTick(function(){
-       this.basciConfig.loading = this.config.loading = flag;
-      })
+      this.$nextTick(function() {
+        this.basciConfig.loading = this.config.loading = flag;
+      });
     },
     //表格布局渲染
     doLayout: function() {
@@ -428,6 +453,56 @@ export default {
         ) {
           return "multipleSelect";
         }
+      } else if (
+        this.basciConfig.rowClassNameOver &&
+        this.basciConfig.highlightCurrentRow
+      ) {
+        return this.basciConfig.rowClassNameOver.call(this, obj);
+      }
+    },
+    //刷新el-scrollbar
+    updateScrollbar: function() {
+      this.$nextTick(function() {
+        var scroolbar = this.$refs[this.basciConfig.ref].$refs.tableElScrollbar;
+        if (typeof scroolbar !== "undefined") {
+          scroolbar.update();
+        }
+      });
+    },
+    //基于elscrollbar的列对齐方式
+    updateSyncPostion: function() {
+      this.$nextTick(function() {
+        var doSyncPostion = null;
+        if (
+          typeof this.$refs[this.basciConfig.ref].syncPostionExt !== "undefined"
+        ) {
+          doSyncPostion = this.$refs[this.basciConfig.ref].syncPostionExt;
+        } else if (
+          typeof this.$refs[this.basciConfig.ref].syncPostion !== "undefined"
+        ) {
+          doSyncPostion = this.$refs[this.basciConfig.ref].syncPostion;
+        }
+        doSyncPostion !== null ? doSyncPostion() : "";
+      });
+    },
+    //未提供总数的计算
+    countTotal: function(data) {
+      if (this.basciPagination.layout.indexOf("slot") > -1) {
+        if (data.length < this.basciPagination.pageSize) {
+          if (data.length > 0) {
+            this.basciPagination.total =
+              (this.basciPagination.currentPage - 1) *
+                this.basciPagination.pageSize +
+              data.length;
+          } else {
+            this.basciPagination.total =
+              this.basciPagination.currentPage * this.basciPagination.pageSize;
+          }
+        } else {
+          this.basciPagination.total =
+            this.basciPagination.pageSize *
+            (this.basciPagination.currentPage + 1);
+        }
       }
     },
     //手动设置单选 选中
@@ -438,15 +513,19 @@ export default {
         this.$refs[this.basciConfig.ref].toggleRowSelection(row);
         this.basciConfig.selectRows = this.config.selectRows = [row];
       }
+    },
+    jumpFirst: function() {
+      if (this.pagination.currentPage == 1) return;
+      this.handleCurrentChange(1);
     }
   },
   data: function() {
     return {
       /*
-        elementui  2.13.0 版本修复了 挂载组件默认执行排序的bug
-        用来控制设置default-sort 后页面加载第一次自动运行 sort-change 事件
-        isDefaultSortLoad:false,
-      */
+                 elementui  2.13.0 版本修复了 挂载组件默认执行排序的bug
+                 用来控制设置default-sort 后页面加载第一次自动运行 sort-change 事件
+                 isDefaultSortLoad:false,
+                 */
       //默认的排序规则
       sortOrders: ["ascending", "descending"],
       //分页栏默认配置
@@ -458,12 +537,14 @@ export default {
         disabled: false,
         layout: "prev, pager, next, jumper",
         style: { textAlign: "center", marginTop: "10px" },
+        show: true,
         total: ""
       },
       //table的默认配置
       basciConfig: {
         ref: "basciTable",
         emptyText: "",
+        basciScroll: true, //暂不开放 对IE 11以下兼容并不好
         loading: true,
         border: true,
         headerCellStyle: {
@@ -479,8 +560,6 @@ export default {
         highlightCurrentRow: true,
         width: "100%",
         style: { width: "100%" },
-        show: true,
-        refresh: false,
         data: []
       }
     };
@@ -488,6 +567,7 @@ export default {
   watch: {
     //由于props 单向传输所以通过监听来满足双向绑定
     "basciConfig.data": function(newValue, oldValue) {
+      this.countTotal(newValue);
       this.basciConfig.data = this.config.data = newValue;
       this.basciConfig.selectRows = this.config.selectRows = [];
       this.$nextTick(function() {
@@ -498,10 +578,15 @@ export default {
         //重新计算grid的布局 为了修正ie 下表头错位
         this.$refs[this.basciConfig.ref].doLayout();
         this.headerColumsRepair();
+        //elscrollbar 刷新
+        this.updateScrollbar();
+        //对齐列和表头的重写方法
+        this.updateSyncPostion();
       });
     },
     //由于props 单向传输所以通过监听来满足双向绑定
     "config.data": function(newValue, oldValue) {
+      this.countTotal(newValue);
       this.basciConfig.data = this.config.data = newValue;
       this.basciConfig.selectRows = this.config.selectRows = [];
       this.$nextTick(function() {
@@ -511,7 +596,14 @@ export default {
         //重新计算grid的布局 为了修正ie 下表头错位
         this.$refs[this.basciConfig.ref].doLayout();
         this.headerColumsRepair();
+        //elscrollbar 刷新
+        this.updateScrollbar();
+        //对齐列和表头的重写方法
+        this.updateSyncPostion();
       });
+    },
+    "config.columns": function(newValue, oldValue) {
+      this.basciConfig.columns = this.config.columns = newValue;
     },
     "basciPagination.currentPage": function(newValue, oldValue) {
       this.basciPagination.currentPage = this.pagination.currentPage = newValue;
@@ -562,6 +654,7 @@ export default {
   },
   created: function() {
     this.componentReady();
-  }
+  },
+  mounted: function() {}
 };
 </script>

@@ -35,6 +35,26 @@
 .el-table__body tr.current-row td{
   background-color: #B1D6F0;
 }
+/*冻结列的hover时的颜色*/
+.el-table__body tr.hover-row.current-row>td,
+.el-table__body tr.hover-row.el-table__row--striped.current-row>td,
+.el-table__body tr.hover-row.el-table__row--striped>td,
+.el-table__body tr.hover-row>td{
+  background-color:#fff
+}
+/*冻结列的非交替行选中颜色*/
+.el-table__body tr.current-row.hover-row td{
+  background-color: #B1D6F0;
+}
+/*冻结列交替行选中后的hover颜色*/
+.el-table--striped .el-table__body tr.el-table__row--striped.current-row.hover-row td{
+  background-color: #B1D6F0;
+}
+/*交替行hover*/
+.el-table--striped .el-table__body tr.el-table__row--striped.hover-row td {
+  background-color: #edf4fc;
+}
+
 /* 选中时升序颜色 */
 .el-table .descending .sort-caret.descending {
   border-top-color: #fff;
@@ -55,15 +75,32 @@
 .multipleSelect>td{
   background:#B1D6F0 !important;
 }
-.cellTest{
-  background:#B1D6F0 !important;
+.el-pagination{
+  position: relative;
 }
-/*添加列头刷新样式*/
-.el-table-refresh{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #fff;
+/*分页栏首页*/
+.pagination_first{
+  position:absolute;
+  left:-200%
+}
+.pagination_first>.el-link{
+  font-weight:bold
+}
+
+.el-table__body-wrapper .el-scrollbar__wrap{
+  overflow-x: hidden;
+}
+
+.el-table__body-wrapper{
+  min-height: 44px;
+}
+.el-table__body-wrapper .el-scrollbar__bar.is-horizontal{
   z-index: 100;
-  font-size: 18px;
 }
+
+.el-table__body-wrapper .el-scrollbar__bar .is-vertical{
+  z-index: 100;  
+}
+
+
+ 
