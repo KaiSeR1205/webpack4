@@ -78,11 +78,6 @@ export default {
             router:"tree"
           },
           {
-            name: "el-table 多级表头",
-            desc: "el-table 多级表头",
-            router: "grid-demo-moreHeader"
-          },
-          {
             name: "el-table filter",
             desc: "el-table 表头筛选",
             router: "grid-demo-filter"
