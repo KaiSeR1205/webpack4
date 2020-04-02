@@ -153,6 +153,9 @@ export default {
         ].resizable = false;
       }
 
+      //用来控制是否禁用分页
+      this.basciPagination.defaultDisabled = this.basciPagination.disabled
+
       this.basciPagination.total =
         this.basciPagination.total || this.basciPagination.pageSize;
 
@@ -248,6 +251,7 @@ export default {
     },
     //分页页码变动事件
     handleCurrentChange: function(pageIndex) {
+
       this.basciConfig.selectRows = this.config.selectRows = [];
 
       this.clearSelection();
@@ -535,6 +539,7 @@ export default {
         currentPage: 1,
         pageSize: 50,
         disabled: false,
+        defaultDisabled:false,  //用来控制是否禁用分页
         layout: "prev, pager, next, jumper",
         style: { textAlign: "center", marginTop: "10px" },
         show: true,
@@ -568,13 +573,19 @@ export default {
     //由于props 单向传输所以通过监听来满足双向绑定
     "basciConfig.data": function(newValue, oldValue) {
       this.countTotal(newValue);
+
       this.basciConfig.data = this.config.data = newValue;
       this.basciConfig.selectRows = this.config.selectRows = [];
       this.$nextTick(function() {
         this.defaultSelect();
         this.$refs[this.basciConfig.ref].bodyWrapper.scrollTop = 0;
         this.$refs[this.basciConfig.ref].bodyWrapper.scrollLeft = 0;
-        this.basciConfig.loading = this.config.loading = this.basciPagination.disabled = this.pagination.disabled = false;
+        this.basciConfig.loading = this.config.loading = this.basciPagination.disabled = this.pagination.disabled = false
+
+        //禁用分页
+        if(this.basciPagination.defaultDisabled){
+          this.basciPagination.disabled = this.pagination.disabled = true;
+        }
         //重新计算grid的布局 为了修正ie 下表头错位
         this.$refs[this.basciConfig.ref].doLayout();
         this.headerColumsRepair();
@@ -593,6 +604,11 @@ export default {
         this.$refs[this.basciConfig.ref].bodyWrapper.scrollTop = 0;
         this.$refs[this.basciConfig.ref].bodyWrapper.scrollLeft = 0;
         this.basciConfig.loading = this.config.loading = this.basciPagination.disabled = this.pagination.disabled = false;
+
+        //禁用分页
+        if(this.basciPagination.defaultDisabled){
+          this.basciPagination.disabled = this.pagination.disabled = true;
+        }
         //重新计算grid的布局 为了修正ie 下表头错位
         this.$refs[this.basciConfig.ref].doLayout();
         this.headerColumsRepair();
