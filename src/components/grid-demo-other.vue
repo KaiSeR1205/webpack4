@@ -1,5 +1,8 @@
 <template>
   <div style="height:100%">
+    <transition name="el-fade-in">
+      <div class="toast" v-show="toastCfg.show">{{toastCfg.text}}</div>
+    </transition>
     <basci-grid
       ref="basciGrid"
       :config="grid"
@@ -9,7 +12,6 @@
       @row-dbclick="rowDbClick"
     ></basci-grid>
     <el-dialog title="收货地址" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
-
       <el-table
         :show-header="false"
         style="width: 100%"
@@ -20,38 +22,22 @@
         @cell-mouse-enter="cellMouseEnter"
         @cell-mouse-leave="cellMouseLeave"
       >
-          <el-table-column
-          prop="name"
-          label="姓名"
-          width="100">
+        <el-table-column prop="name" label="姓名" width="100"></el-table-column>
+        <el-table-column prop="age" label="年龄" width="100"></el-table-column>
+        <el-table-column prop="address" label="地址" width="200"></el-table-column>
+        <el-table-column prop="opetion" label="操作" width="120">
+          <template slot-scope="scope">
+            <span v-show="!scope.row.hover.show">{{scope.row.opetion}}</span>
+            <div v-show="scope.row.hover.show">
+              <i style="font-size:20px" class="el-icon-check" @click="checkIconClick(scope.row)"></i>
+              <i style="font-size:20px" class="el-icon-close" @click="closeIconClick(scope.row)"></i>
+            </div>
+          </template>
         </el-table-column>
-        <el-table-column
-        prop="age"
-        label="年龄"
-        width="100">
-      </el-table-column>
-        <el-table-column
-        prop="address"
-        label="地址"
-        width="200">
-      </el-table-column>
-        <el-table-column
-        prop="opetion"
-        label="操作"
-        width="120">
-        <template slot-scope="scope">
-          <span v-show="!scope.row.hover.show">{{scope.row.opetion}}</span>
-          <div v-show="scope.row.hover.show">
-            <i style="font-size:20px" class="el-icon-check" @click="checkIconClick(scope.row)"></i>
-            <i style="font-size:20px" class="el-icon-close" @click="closeIconClick(scope.row)"></i>
-          </div>
-        </template>
-      </el-table-column>
       </el-table>
 
-
       <el-form
-      style="margin-top:20px"
+        style="margin-top:20px"
         :model="ruleForm"
         status-icon
         :rules="rules"
@@ -125,6 +111,10 @@ export default {
       }
     };
     return {
+      toastCfg:{
+        show:false,
+        text: "操作成功"
+      },
       dialogFormVisible: false,
       ruleForm: {
         pass: "",
@@ -136,58 +126,64 @@ export default {
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
         age: [{ validator: checkAge, trigger: "blur" }]
       },
-      subgrid:{
-           height: "200px",
+      subgrid: {
+        height: "200px",
         defaultSort: { prop: "date", order: "descending" },
         columns: [
           {
             prop: "date",
             label: "时间",
             align: "center",
-            width: "100",
+            width: "100"
           },
           {
             prop: "desc",
             label: "描述",
-            showOverflowTooltip:false,
-            align: "center",
+            showOverflowTooltip: false,
+            align: "center"
           }
         ],
         /*表格数据*/
-        data: [{
-              id: 0,
-              date: "2020-04",
-              desc: "那就看你就看就看就看",
-              qu: "大伤脑筋健康的数据库",
-              address: "迦南科技电视剧的时间里"
-            },{
-              id: 0,
-              date: "2020-04",
-              desc: "那就看你就看就看就看",
-              qu: "大伤脑筋健康的数据库",
-              address: "迦南科技电视剧的时间里"
-            },{
-              id: 0,
-              date: "2020-04",
-              desc: "那就看你就看就看就看",
-              qu: "大伤脑筋健康的数据库",
-              address: "迦南科技电视剧的时间里"
-            },{
-              id: 0,
-              date: "2020-04",
-              desc: "那就看你就看就看就看",
-              qu: "大伤脑筋健康的数据库",
-              address: "迦南科技电视剧的时间里"
-            },{
-              id: 0,
-              date: "2020-04",
-              desc: "那就看你就看就看就看",
-              qu: "大伤脑筋健康的数据库",
-              address: "迦南科技电视剧的时间里"
-            }]     
+        data: [
+          {
+            id: 0,
+            date: "2020-04",
+            desc: "那就看你就看就看就看",
+            qu: "大伤脑筋健康的数据库",
+            address: "迦南科技电视剧的时间里"
+          },
+          {
+            id: 0,
+            date: "2020-04",
+            desc: "那就看你就看就看就看",
+            qu: "大伤脑筋健康的数据库",
+            address: "迦南科技电视剧的时间里"
+          },
+          {
+            id: 0,
+            date: "2020-04",
+            desc: "那就看你就看就看就看",
+            qu: "大伤脑筋健康的数据库",
+            address: "迦南科技电视剧的时间里"
+          },
+          {
+            id: 0,
+            date: "2020-04",
+            desc: "那就看你就看就看就看",
+            qu: "大伤脑筋健康的数据库",
+            address: "迦南科技电视剧的时间里"
+          },
+          {
+            id: 0,
+            date: "2020-04",
+            desc: "那就看你就看就看就看",
+            qu: "大伤脑筋健康的数据库",
+            address: "迦南科技电视剧的时间里"
+          }
+        ]
       },
-       subPagination: {
-         show:false
+      subPagination: {
+        show: false
       },
       grid: {
         height: "90%",
@@ -217,30 +213,38 @@ export default {
         currentPage: 1,
         pageSize: 20,
         layout: "prev, pager, next",
-        total:1000
+        total: 1000
       }
     };
   },
   methods: {
-    checkIconClick:function(row){
-      alert('点击了checkIcon')
+    toast:function(text){
+      var self = this
+      this.toastCfg.show = true
+      this.toastCfg.text = text  
+      setTimeout(function() {
+        self.toastCfg.show = false
+      }, 1500);
     },
-    closeIconClick:function(row){
-      alert('点击了closeIcon')
+    checkIconClick: function(row) {
+      this.toast("点击了checkIcon")
     },
-    cellMouseEnter:function(row, column, cell, event){
-          if(column.property=="opetion"){
-              clearTimeout(row.hover.timeout);
-              row.hover.timeout = setTimeout(() => {
-                row.hover.show = true
-              }, 500);
-          }
+    closeIconClick: function(row) {
+      this.toast("点击了closeIcon")
     },
-    cellMouseLeave:function(row, column, cell, event){
-          if(column.property=="opetion"){
-              clearTimeout(row.hover.timeout);
-              row.hover.show = false
-          }
+    cellMouseEnter: function(row, column, cell, event) {
+      if (column.property == "opetion") {
+        clearTimeout(row.hover.timeout);
+        row.hover.timeout = setTimeout(() => {
+          row.hover.show = true;
+        }, 500);
+      }
+    },
+    cellMouseLeave: function(row, column, cell, event) {
+      if (column.property == "opetion") {
+        clearTimeout(row.hover.timeout);
+        row.hover.show = false;
+      }
     },
     formatterToolTip: function(h, row, column) {
       return h(
@@ -250,7 +254,8 @@ export default {
             content: row.desc,
             placement: "top",
             effect: "light",
-            openDelay:400
+            openDelay: 400
+            //value:true
           }
         },
         [h("div", {}, row.desc)]
@@ -286,7 +291,7 @@ export default {
     },
     //行记录双击事件
     rowDbClick: function(row, column, event) {
-      this.dialogFormVisible = !this.dialogFormVisible
+      this.dialogFormVisible = !this.dialogFormVisible;
     }
   },
   beforeCreate() {
@@ -309,5 +314,32 @@ export default {
 .el-table__body-wrapper {
   position: relative;
   overflow: hidden;
+}
+.el-tooltip__popper.is-light[x-placement^="top"] .popper__arrow {
+  border-top-color: #fff;
+}
+.el-tooltip__popper.is-light {
+  border-color: #fff;
+  box-shadow: 0px 4px 8px 0px #e5e5e5;
+}
+.toast {
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 45%;
+  transition: all 1.5s;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
+  background: rgba(17, 17, 17, 0.7);
+  height: 45px;
+  line-height: 45px;
+  padding: 0 15px;
+  max-width: 150px;
 }
 </style>
