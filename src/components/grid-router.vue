@@ -68,6 +68,11 @@ export default {
             router: "grid-demo-to-grid"
           },
           {
+            name: "grid-demo-other",
+            desc: "grid-demo-other",
+            router: "grid-demo-other"
+          },
+          {
             name:'basci-grid自定义合并行或列',
             desc:"basci-grid自定义合并行或列",
             router:"grid-demo-mergeColumn"

@@ -60,15 +60,27 @@ const router = new Router({
       meta:{keepAlive:true}
     },
     {
-      path: '/grid-demo-tree',
-      name: 'grid-demo-tree',
-      component: () => import('@/grid-demo-tree'),
+      path: '/grid-demo-filter',
+      name: 'grid-demo-filter',
+      component: () => import('@/grid-demo-filter'),
+      meta:{keepAlive:true}
+    },
+    {
+      path: '/grid-demo-other',
+      name: 'grid-demo-other',
+      component: () => import('@/grid-demo-other'),
       meta:{keepAlive:true}
     },
     {
       path: '/grid-demo-lazy-tree',
       name: 'grid-demo-lazy-tree',
       component: () => import('@/grid-demo-lazy-tree'),
+      meta:{keepAlive:true}
+    },
+    {
+      path: '/grid-demo-tree',
+      name: 'grid-demo-tree',
+      component: () => import('@/grid-demo-tree'),
       meta:{keepAlive:true}
     },
     {

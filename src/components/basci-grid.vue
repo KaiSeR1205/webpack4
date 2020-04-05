@@ -44,6 +44,7 @@
         :sortable="item.sortable"
         :sort-orders="sortOrders"
         :formatter="item.formatter"
+        :render-header="item.renderHeader"
       ></el-table-column>
     </el-table>
     <el-pagination

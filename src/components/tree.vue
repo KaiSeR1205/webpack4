@@ -313,7 +313,6 @@ export default {
   height:45px !important
 }
 .el-drawer__body{
-    height:100%;
     margin-top: 1px;
     border-top: 1px solid #eceef6;
 }
@@ -333,12 +332,7 @@ export default {
 .orgContainer {
   height: 95% !important;
 }
-.orgContainer .el-scrollbar {
-  height: 90% !important;
-  border-bottom: 1px solid #eceef6;
-}
 .orgContainer .el-scrollbar .el-scrollbar__wrap {
-  width: 300px;
   border-top: 1px solid #eceef6;
   margin-top: 1px;
 }
