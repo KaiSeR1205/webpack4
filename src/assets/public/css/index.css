@@ -1,3 +1,52 @@
+/* 通用样式 */
+.box{
+  display: -webkit-box; 
+  display: -moz-box; 
+  display: -ms-flexbox; 
+  display: -webkit-flex; 
+  display: flex; 
+}
+.direction_colum{
+  -ms-flex-direction: column;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.align_center {
+  -webkit-box-align: center; 
+  -moz-box-align: center;
+  -ms-flex-align: center; 
+  -webkit-align-items: center;
+  align-items: center;
+}
+.align_baseline {
+  -webkit-box-align: baseline; 
+  -moz-box-align: baseline;
+  -ms-flex-align: baseline; 
+  -webkit-align-items: baseline;
+  align-items: baseline;
+}
+.justify_flex_end {
+  justify-content: flex-end;
+  -webkit-box-pack: end; 
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+}
+.justify_center {
+  -webkit-box-pack: center; -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.flex_1 {
+  -prefix-box-flex: 1; 
+  -webkit-box-flex: 1; 
+  -webkit-flex: 1; 
+  -moz-box-flex: 1; 
+  -ms-flex: 1; 
+  flex: 1; 
+}
 .alias {
   width:100%;
   text-align: center;

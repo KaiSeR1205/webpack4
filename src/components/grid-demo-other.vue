@@ -25,7 +25,7 @@
         <el-table-column prop="name" label="姓名" width="100"></el-table-column>
         <el-table-column prop="age" label="年龄" width="100"></el-table-column>
         <el-table-column prop="address" label="地址" width="200"></el-table-column>
-        <el-table-column prop="opetion" label="操作" width="120">
+        <el-table-column prop="opetion" label="操作" class-name="xx" width="120">
           <template slot-scope="scope">
             <span v-show="!scope.row.hover.show">{{scope.row.opetion}}</span>
             <div v-show="scope.row.hover.show">
@@ -254,8 +254,8 @@ export default {
             content: row.desc,
             placement: "top",
             effect: "light",
-            openDelay: 400
-            //value:true
+            openDelay: 400,
+            value:true
           }
         },
         [h("div", {}, row.desc)]
@@ -311,10 +311,6 @@ export default {
 </script>
 
 <style>
-.el-table__body-wrapper {
-  position: relative;
-  overflow: hidden;
-}
 .el-tooltip__popper.is-light[x-placement^="top"] .popper__arrow {
   border-top-color: #fff;
 }
@@ -341,5 +337,8 @@ export default {
   line-height: 45px;
   padding: 0 15px;
   max-width: 150px;
+}
+.xx{
+  color: red;
 }
 </style>

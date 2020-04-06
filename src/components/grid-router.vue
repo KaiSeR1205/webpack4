@@ -83,6 +83,11 @@ export default {
             router:"tree"
           },
           {
+            name:'upload-Demo',
+            desc:"upload-Demo",
+            router:"upload-Demo"
+          },
+          {
             name: "el-table filter",
             desc: "el-table 表头筛选",
             router: "grid-demo-filter"

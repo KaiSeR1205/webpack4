@@ -90,6 +90,12 @@ const router = new Router({
       meta:{keepAlive:true}
     },
     {
+      path: '/upload-Demo',
+      name: 'upload-Demo',
+      component: () => import('@/upload-Demo'),
+      meta:{keepAlive:true}
+    },
+    {
       path: '/tree',
       name: 'tree',
       component: () => import('@/tree'),
