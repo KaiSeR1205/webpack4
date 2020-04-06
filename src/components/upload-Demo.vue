@@ -29,7 +29,7 @@
       </div>
     </div>
     <div style="margin-top: 20px;text-align: center;">
-      <el-button :disabled="word.disabled" :type="word.disabled?'info':'primary'">确定上传</el-button>
+      <el-button @click="uploadSubmit" :disabled="word.disabled" :type="word.disabled?'info':'primary'">确定上传</el-button>
     </div>
   </div>
 </template>
@@ -55,6 +55,9 @@ export default {
     };
   },
   methods: {
+    uploadSubmit:function(){
+        vm.$alert(this.word.content,"内容",{showConfirmButton:false})
+    },
     beforeUpload(file) {
       console.log(file);
       this.word.content=""
@@ -74,11 +77,11 @@ export default {
         this.word.content = response.content;
       } else {
         console.log(response.content);
-        alert("文件解析失败");
+        this.$message.error('文件解析失败:'+response.content);
       }
     },
     uploadError: function(err, file, fileList) {
-      console.log(err);
+      this.$message.error(typeof err == "object"?JSON.stringify(err):error);
     }
   },
   watch:{
@@ -144,5 +147,12 @@ export default {
 .word > .el-scrollbar__wrap,
 .word > .el-scrollbar > .el-scrollbar__wrap .el-scrollbar__view {
   height: 100% !important;
+}
+.el-message-box{
+    height:90%;
+}
+.el-message-box__content{
+    height: 90%;
+    overflow: auto;
 }
 </style>
