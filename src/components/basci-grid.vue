@@ -8,6 +8,7 @@
       :span-method="basciConfig.spanMethod"
       :stripe="basciConfig.stripe"
       :empty-text="basciConfig.emptyText"
+      :tooltip-effect="basciConfig.tooltipEffect"
       v-loading="basciConfig.loading"
       @row-dblclick="rowDbClick"
       @cell-dblclick="cellDblClick"
