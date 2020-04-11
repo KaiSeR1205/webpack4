@@ -1,0 +1,240 @@
+.justify_center {
+  -webkit-box-pack: center; -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.align_center {
+  -webkit-box-align: center; -moz-box-align: center;
+  -ms-flex-align: center; 
+  -ms-flex-item-align:center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* tab样式 */
+.mainTab {
+    padding: 0px 15px;
+    min-width: 1000px;
+  }
+  .mainTab > .el-tabs__content {
+    height: 100%;
+  }
+  .mainTab > .el-tabs__header {
+    margin-bottom: 0px;
+  }
+  
+ /* 通知统计样式 */
+  .noticTitle {
+      margin-top: 10px;
+    /* line-height: 55px; */
+  }
+  .newNoticCount{
+    color: #2a2a2a;
+    font-size: 30px;
+    margin-right: 5px;
+     margin-top: -13px;
+    /* line-height: 30px;   */
+  }
+  .notic_label{
+    /* line-height: 30px; */
+    font-size: 18px;
+    color: #777777;
+  }
+  .applyNotice{
+    margin-left: 20px;
+    border: 1px solid #7f7f7f;
+    border-radius: 20px;
+    padding: 0px 15px;
+    background-color: #fff;
+    line-height: 40px;
+    margin-top: -13px;
+  }
+  .applyNotice>.count {
+    color: #2a2a2a;
+    font-size: 20px;
+    margin-right: 3px;
+    /* font-weight: 700; */
+  }
+  .applyNotice>.label {
+    font-size: 15px;
+    color: #777777;
+    /* font-weight: 700; */
+  }
+  /* 搜索栏样式 */
+  .searchBar {
+    width: 300px;
+  }
+  .searchBtn {
+    background-color: #1890ff !important;
+  }
+  .searchBtn > span {
+    color: #fff;
+  }
+  
+  /* grid child vnode样式 */
+  .iconOpeate {
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .el-tooltip__popper.is-light[x-placement^="top"] .popper__arrow {
+    border-top-color: #fff;
+  }
+  .el-tooltip__popper.is-light {
+    border-color: #fff;
+    -webkit-box-shadow: 0px 4px 8px 0px #e5e5e5;
+    -moz-box-shadow: 0px 4px 8px 0px #e5e5e5;
+    box-shadow: 0px 4px 8px 0px #e5e5e5;
+    box-sizing: border-box;
+  }
+  .el-table__fixed-right {
+    right: 0px !important;
+  }
+  
+  /* 弹出层需要的样式 */
+  body {
+    padding-right: 0px !important;  /*右边不出现滚动条的宽度*/
+  }
+  .dialogForm {
+    overflow: hidden;
+  }
+  .dialogForm .el-dialog__close {
+    color: #fff !important;
+    font-size: 22px;
+  }
+  .dialogForm .el-dialog {
+    width: 600px;
+    margin-top: 12vh !important;
+  }
+  .dialogForm .el-dialog__header {
+    background-color: #1890ff;
+    color: #fff;
+    padding: 15px 20px 10px;
+  }
+  .dialogForm .el-dialog__headerbtn{
+      top:15px
+  }
+  .dialogForm .el-row {
+    margin: 0 auto !important;
+    padding-left: 10px;
+  }
+  .dialogForm .radius{
+      border:1px solid #7f7f7f;
+      border-radius: 20px;
+      padding: 4px;
+      font-size: 28px;
+  }
+  .dialogForm .content{
+      text-align: left;
+  }
+  .dialogForm .mainForm{
+    border: 1px solid #828282;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  .dialogForm .mainForm .name,
+  .dialogForm .applyTitle{
+    font-size: 18px;
+    color: #2D2D2D;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  .dialogForm .label{
+    font-size: 14px;
+    min-width:70px;
+    text-align: left;
+  }
+  .dialogForm .row{
+      margin-bottom: 20px;
+      text-align: left;
+  }
+  .dialogForm .contentGray{
+    color: #b3b3b4;
+  }
+  .dialogForm .contentBlack{
+    color: #2D2D2D;
+  }
+  .dialogForm .gutter{
+      margin-right: 10px;
+  }
+  .dialogForm .approve{
+      border-top:1px dotted;
+      padding-top: 20px;
+      margin-top: 20px;
+      position: relative;
+  }
+  .dialogForm .splitDotted{
+    position: absolute;
+    width: 1px;
+    height: 90%;
+    left: 50%;
+    border-left: 1px dotted;
+  }
+  .dialogForm .leftFlexGutter{
+      margin-left: 15px;
+  }
+  .dialogForm .rightFlexGutter{
+    margin-right: 15px;
+}
+  /* 错误提示弹出层样式 */
+  .dialogError .el-dialog{
+      width:400px !important;
+      height:300px !important;
+  }
+  .dialogError .el-row{
+      line-height: 50px;
+  }
+  .dialogError .el-row>.el-col{
+      text-align: center;
+  }
+
+  /*进行中的弹出层*/
+  .dialogApplying .el-dialog__header{
+    padding-top: 10px;
+  }
+  .dialogApplying .el-dialog__close {
+    font-size: 22px;
+  }
+  .dialogApplying .el-dialog__headerbtn{
+    top:10px
+  }
+  .dialogApplying .el-dialog__body{
+    padding-top: 10px;
+  }
+  /* toast样式 */
+  .toast {
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      top: 45%;
+      transition: all 1.5s;
+      -webkit-transform: translateX(-50%) translateY(-50%);
+      -moz-transform: translateX(-50%) translateY(-50%);
+      -ms-transform: translateX(-50%) translateY(-50%);
+      -o-transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-50%);
+      text-align: center;
+      border-radius: 50px;
+      color: #fff;
+      background: rgba(17, 17, 17, 0.7);
+      height: 45px;
+      line-height: 45px;
+      padding: 0 15px;
+      min-width: 100px;
+  }
+  
+#searchGrid .el-table__header tr,
+#searchGrid .el-table__header th {
+    padding: 0;
+    height: 40px;
+}
+#searchGrid .el-table__body tr,
+#searchGrid .el-table__body td {
+    padding: 0;
+    height: 40px;
+} 
+#searchGrid .cleanhover:hover{
+  background-color:#409EFF !important;
+}

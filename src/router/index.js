@@ -123,6 +123,24 @@ const router = new Router({
       name: 'cascader-lazy',
       component: () => import('@/cascader-lazy'),
       meta:{keepAlive:true}
+    },
+    {
+      path: '/allNotice',
+      name: 'allNotice',
+      component: () => import('@/work/allNotice'),
+      meta:{keepAlive:true}
+    },
+    {
+      path: '/allToDoTask',
+      name: 'allToDoTask',
+      component: () => import('@/work/allToDoTask'),
+      meta:{keepAlive:true}
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('@/work/test'),
+      meta:{keepAlive:true}
     }
   ],
 })

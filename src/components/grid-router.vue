@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:100%">
     <basci-grid ref="basciGrid" :config="grid" :pagination="pagination" @row-dbclick="rowDbClick"></basci-grid>
   </div>
 </template>
@@ -19,6 +19,7 @@ export default {
   data: function() {
     return {
       grid: {
+        height:'90%',
         columns: [
           {
             prop: "name",
@@ -101,6 +102,16 @@ export default {
             name: "el-table lazyTree",
             desc: "el-table 树懒加载子节点",
             router: "grid-demo-lazy-tree"
+          },
+          {
+            name: "allNotice",
+            desc: "allNotice",
+            router: "allNotice"
+          },
+          {
+            name: "allToDoTask",
+            desc: "allToDoTask",
+            router: "allToDoTask"
           }
         ]
       },
