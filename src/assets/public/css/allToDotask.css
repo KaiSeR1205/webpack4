@@ -1,19 +1,21 @@
 .justify_center {
-    -webkit-box-pack: center; -moz-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 .align_center {
-    -webkit-box-align: center; -moz-box-align: center;
-    -ms-flex-align: center; 
-    -ms-flex-item-align:center;
-    -webkit-align-items: center;
-    align-items: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -ms-flex-item-align: center;
+  -webkit-align-items: center;
+  align-items: center;
 }
 /* tab样式 */
 .mainTab {
-  padding: 0px 15px;
+  padding: 5px 15px 0px 15px;
   min-width: 1000px;
 }
 .mainTab > .el-tabs__content {
@@ -25,25 +27,24 @@
 
 /* 待办任务统计样式 */
 .taskTitle {
-  margin-top: 10px;
+  height:40px
 }
 .taskTitle_label {
-  font-size: 18px;
+  font-size: 16px;
   color: #777777;
   /* font-weight: 600; */
 }
 .untreatedTask {
   color: #2a2a2a;
-  font-size: 30px;
+  font-size: 26px;
   margin-right: 5px;
-  margin-top: -13px;
+  margin-top: -10px;
   /* font-weight: 600; */
 }
 .treatedTask {
   color: #2a2a2a;
-  font-size: 20px;
-  margin: 0px 10px;
-  /* font-weight: 700; */
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* 搜索栏样式 */
@@ -72,115 +73,109 @@
   box-shadow: 0px 4px 8px 0px #e5e5e5;
   box-sizing: border-box;
 }
-.el-table__fixed-right {
-  right: 0px !important;
-}
-
 /* 弹出层需要的样式 */
 body {
   padding-right: 0px !important;
 }
 .dialogForm {
-    overflow: hidden;
-  }
-  .dialogForm .el-dialog__close {
-    color: #fff !important;
-    font-size: 22px;
-  }
-  .dialogForm .el-dialog {
-    width: 600px;
-    margin-top: 12vh !important;
-  }
-  .dialogForm .el-dialog__header {
-    background-color: #1890ff;
-    color: #fff;
-    padding: 15px 20px 10px;
-  }
-  .dialogForm .el-dialog__headerbtn{
-      top:15px
-  }
-  .dialogForm .el-row {
-    margin: 0 auto !important;
-    padding-left: 10px;
-  }
-  .dialogForm .el-icon-check{
-      border:1px solid #7f7f7f;
-      border-radius: 20px;
-      padding: 4px;
-      font-size: 28px;
-  }
-  .dialogForm .content{
-      text-align: left;
-  }
-  .dialogForm .mainForm{
-
-  }
-  .dialogForm .mainForm .name{
-    font-size: 30px;
-    color: #2D2D2D;
-    font-weight: 700;
-    margin-right: 10px;
-  }
-  .dialogForm .label{
-    font-size: 14px;
-    min-width:70px;
-    text-align: left;
-  }
-  .dialogForm .row{
-      margin-bottom: 20px;
-      text-align: left;
-  }
-  .dialogForm .contentGray{
-    color: #b3b3b4;
-  }
-  .dialogForm .contentBlack{
-    color: #2D2D2D;
-  }
-  .dialogForm .gutter{
-      margin-right: 10px;
-  }
-  .dialogForm .split{
-    width:95%;
-    margin-top:20px;
-    padding-top: 20px;
-    border-top:1px dotted #828282;
-  }
-
-  .dialogForm .leftFlexGutter{
-      margin-left: 15px;
-  }
-  .dialogForm .rightFlexGutter{
-    margin-right: 15px;
+  overflow: hidden;
+}
+.dialogForm .el-dialog__close {
+  color: #fff !important;
+  font-size: 22px;
+}
+.dialogForm .el-dialog {
+  width: 600px;
+  margin-top: 12vh !important;
+}
+.dialogForm .el-dialog__header {
+  background-color: #1890ff;
+  color: #fff;
+  padding: 15px 20px 10px;
+}
+.dialogForm .el-dialog__headerbtn {
+  top: 15px;
+}
+.dialogForm .el-row {
+  margin: 0 auto !important;
+  padding-left: 10px;
+}
+.dialogForm .el-icon-check {
+  border: 1px solid #7f7f7f;
+  border-radius: 20px;
+  padding: 4px;
+  font-size: 28px;
+}
+.dialogForm .content {
+  text-align: left;
+}
+.dialogForm .mainForm .name {
+  font-size: 30px;
+  color: #2d2d2d;
+  font-weight: 700;
+  margin-right: 10px;
+}
+.dialogForm .label {
+  font-size: 14px;
+  min-width: 70px;
+  text-align: left;
+}
+.dialogForm .row {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.dialogForm .contentGray {
+  color: #b3b3b4;
+}
+.dialogForm .contentBlack {
+  color: #2d2d2d;
+}
+.dialogForm .gutter {
+  margin-right: 10px;
+}
+.dialogForm .split {
+  width: 95%;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px dotted #828282;
 }
 
+.dialogForm .el-textarea__inner{
+  overflow: hidden;
+}
+.dialogForm .leftFlexGutter {
+  margin-left: 15px;
+}
+.dialogForm .rightFlexGutter {
+  margin-right: 15px;
+}
 
-  
 /* 错误提示弹出层样式 */
-.dialogError .el-dialog{
-    width:400px !important;
-    height:300px !important;
+.dialogError .el-dialog {
+  width: 400px !important;
+  height: 300px !important;
 }
-.dialogError div{
-    text-align: center;
+.dialogError div {
+  text-align: center;
 }
 /* toast样式 */
 .toast {
-    position: fixed;
-    z-index: 9999;
-    left: 50%;
-    top: 45%;
-    transition: all 1.5s;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -ms-transform: translateX(-50%) translateY(-50%);
-    -o-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-    text-align: center;
-    border-radius: 50px;
-    color: #fff;
-    background: rgba(17, 17, 17, 0.7);
-    height: 45px;
-    line-height: 45px;
-    padding: 0 15px;
-    min-width: 100px;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 45%;
+  transition: all 1.5s;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  border-radius: 50px;
+  color: #fff;
+  background: rgba(17, 17, 17, 0.7);
+  height: 45px;
+  line-height: 45px;
+  padding: 0 15px;
+  min-width: 100px;
 }

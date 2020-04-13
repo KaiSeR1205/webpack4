@@ -673,6 +673,11 @@ export default {
   created: function() {
     this.componentReady();
   },
-  mounted: function() {}
+  mounted: function() {
+        var scroolbar = this.$refs[this.basciConfig.ref].$refs.tableElScrollbar;
+        if (typeof scroolbar !== "undefined") {
+          this.$refs[this.basciConfig.ref].layout.gutterWidth=0
+        }
+  }
 };
 </script>
