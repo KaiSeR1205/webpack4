@@ -98,7 +98,7 @@
   z-index: 100;
 }
 
-.el-table__body-wrapper .el-scrollbar__bar .is-vertical{
+.el-table__body-wrapper .el-scrollbar__bar.is-vertical{
   z-index: 100;  
 }
 

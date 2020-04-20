@@ -12,8 +12,8 @@
           </div>
         </div>
         <div class="searchBar">
-          <el-input :placeholder="search.placeholder" size="small" clearable v-model="search.value">
-            <el-button slot="append" size="small" class="searchBtn" type="primary" @click="searchEvent">搜索</el-button>
+          <el-input prefix-icon="el-icon-search" :placeholder="search.placeholder" size="mini" clearable v-model="search.value">
+            <el-button slot="append" size="mini" class="searchBtn" type="primary" @click="searchEvent">搜索</el-button>
           </el-input>
         </div>
       </div>
@@ -111,7 +111,7 @@
       <div>
         <el-dialog width="80%" class="dialogApplying" :visible.sync="dialogApplyingVisible"
           :close-on-click-modal="false" center>
-          <div slot="title">申请记录</div>
+          <div slot="title" class="title">申请记录</div>
           <div class="flex-h">
             <div class="flex_1" style="text-align:left">
               <el-radio-group size="mini" v-model="tabStates">
@@ -120,13 +120,11 @@
                 <el-radio-button label="2">审批结束</el-radio-button>
               </el-radio-group>
             </div>
-            <div>
-              <el-input ref="applySearch" style="width:250px" size="mini" placeholder="请输入代发单位编号/名称" clearable
-                v-model="applySearch">
-                <i slot="suffix" style="font-size:14px" class="el-input__icon el-icon-search"
-                  @click="applySearchEvent"></i>
-              </el-input>
-            </div>
+          <div class="searchBar">
+            <el-input ref="applySearch" prefix-icon="el-icon-search" :placeholder="search.placeholder" size="mini" clearable v-model="applySearch">
+              <el-button slot="append" size="mini" class="searchBtn" type="primary" @click="applySearchEvent">搜索</el-button>
+            </el-input>
+          </div>
           </div>
           <div style="height:100%;padding-top:10px">
             <basci-grid ref="searchGrid" :pagination="searchPagination" :config="searchGrid" @row-dbclick="rowDbClick"
@@ -260,13 +258,13 @@ export default {
                   align: "center"
                 },
                 {
-                  prop: "substituteName",
-                  label: "代发单位名称",
+                  prop: "substituteCode",
+                  label: "代发单位编号",
                   align: "center"
                 },
                 {
-                  prop: "substituteCode",
-                  label: "代发单位编号",
+                  prop: "substituteName",
+                  label: "代发单位名称",
                   align: "center"
                 },
                 {
@@ -297,11 +295,11 @@ export default {
                     var h = self.$createElement;
                     var cfg = { text: "", color: "" };
                     if (row.app_state == 2) {
-                      cfg = { text: "待审批", color: "#f39700" };
+                      cfg = { text: "待审批", color: "#FF980B" };
                     } else if (row.app_state == 3) {
-                      cfg = { text: "同意", color: "#74d980" };
+                      cfg = { text: "同意", color: "#00CC81" };
                     } else if (row.app_state == 4) {
-                      cfg = { text: "拒绝", color: "#f36a77" };
+                      cfg = { text: "拒绝", color: "#FF4858 " };
                     }
                     return h(
                       "div",
@@ -319,7 +317,12 @@ export default {
               //grid配置
               ref: "grid",
               height: "85%",
-              //tooltipEffect: "light",
+              border:false,
+              headerCellStyle: {
+                background: "#fff",
+                color: "#808695",
+                fontWeight: "400"
+              },
               highlightCurrentRow: false,
               defaultSort: { prop: "", order: "" },
               columns: [],
@@ -335,7 +338,12 @@ export default {
             searchGrid: {
               ref: "searchGrid",
               height: "200",
-              //tooltipEffect: "light",
+              border:false,
+              headerCellStyle: {
+                background: "#fff",
+                color: "#808695",
+                fontWeight: "400"
+              },
               highlightCurrentRow: false,
               defaultSort: { prop: "", order: "" },
               columns: [],
@@ -384,7 +392,7 @@ export default {
               row.isNew
                 ? h("i", {
                   class: ["fa fa-circle"],
-                  style: { color: "red", marginRight: "5px" }
+                  style: { color: "#FF4858", marginRight: "5px" }
                 })
                 : "",
               h("span", {}, row.type == 1 ? "关系所属变更" : "团队人员变更")
@@ -397,9 +405,10 @@ export default {
               "el-tag",
               {
                 props: {
-                  effect:"dark",
+                  effect:"plain",
                   size:"small"
                 },
+                class:[row.type==1?"relationship":'team']
               },
               row.type == 1 ? "所属关系" : "团队人员"
             );

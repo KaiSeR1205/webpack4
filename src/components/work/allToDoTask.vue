@@ -17,7 +17,7 @@
             <div class="taskTitle_label">个搜索结果</div>
           </div>
           <div class="searchBar">
-            <el-input :placeholder="search.placeholder" size="small" clearable v-model="search.value" @clear="inputClear">
+            <el-input prefix-icon="el-icon-search" id="searchValue" :placeholder="search.placeholder" size="small" clearable v-model="search.value" @clear="inputClear">
               <el-button slot="append" size="small" class="searchBtn" type="primary" @click="searchEvent">搜索</el-button>
             </el-input>
           </div>
@@ -28,13 +28,16 @@
         </div>
         <div>
           <el-dialog class="dialogForm" :visible.sync="dialogFormVisible" :close-on-click-modal="false" center>
-            <div slot="title">代发关系变更</div>
+            <div slot="title" class="title">代发关系变更</div>
             <el-form ref="dengmiQueryForm" label-width="100px" size="mini" label-position="left">
               <div class="mainForm">
                 <div class="row" style="margin-bottom: 20px;">
                   <span class="name">西贝</span>
-                  <span class="label contentGray">单位编号：</span>
-                  <span class="label contentBlack">90887633</span>
+                  <span class="code">
+                    <span class="label contentGray">编号：</span>
+                    <span class="label contentGray">90887633</span>
+                  </span>
+                  
                 </div>
                 <div class="row">
                   <div class="row flex-h flex_1">
@@ -74,9 +77,9 @@
                     <div class="label contentBlack gutter">变更类型</div>
                     <div class="flex_1">
                       <span class="label contentGray">变更</span>
-                      <span class="label contentBlack">代发拓展人</span>
+                      <span class="label contentBlack" style="font-weight: bold;">代发拓展人</span>
                       <span class="label contentGray gutter">为 :</span>
-                      <span class="label contentBlack">2344-张小三-上海分行</span>
+                      <span class="label contentBlack" style="font-weight: bold;">2344-张小三-上海分行</span>
                     </div>
                   </div>
                   <div class="row flex-h">
@@ -167,9 +170,18 @@ export default {
               value: ""
             },
             gridType: "basciColumns", //grid配置列的属性名
-            columns: {
-              //grid 切换列的配置 basciColumns 、searchColumns
-              basciColumns: [
+            grid: {
+              //grid配置
+              height: "90%",
+              headerCellStyle: {
+                background: "#fff",
+                color: "#808695",
+                fontWeight: "400"
+              },
+              border:false,
+              highlightCurrentRow: false,
+              defaultSort: { prop: "", order: "" },
+              columns: [
                 {
                   prop: "type",
                   label: "变更类型",
@@ -194,7 +206,20 @@ export default {
                 {
                   prop: "substituteName",
                   label: "代发单位名称",
-                  align: "center"
+                  align: "center",
+                  formatter:function(row, coloum){
+                    var h = self.$createElement
+                    var searchValue = $('#searchValue').val()
+                    if(self.gridType=="searchColumns"){
+                       return h('span',{
+                           domProps: {
+                              innerHTML: row.substituteName.replace(searchValue,"<span style='color:#FF4858'>"+searchValue+"</span>")
+                           }
+                       }) 
+                    }else{
+                      return row.substituteName
+                    }
+                  },
                 },
                 {
                   prop: "beforeOrg",
@@ -224,11 +249,11 @@ export default {
                     var h = self.$createElement;
                     var cfg = { text: "", color: "" };
                     if (row.app_state == 2) {
-                      cfg = { text: "待审批", color: "#f39700" };
+                      cfg = { text: "待审批", color: "#FF980B" };
                     } else if (row.app_state == 3) {
-                      cfg = { text: "同意", color: "#74d980" };
+                      cfg = { text: "同意", color: "#00CC81" };
                     } else if (row.app_state == 4) {
-                      cfg = { text: "拒绝", color: "#f36a77" };
+                      cfg = { text: "拒绝", color: "#FF4858" };
                     }
                     return h(
                       "div",
@@ -241,98 +266,19 @@ export default {
                 },
                 {
                   prop: "operate",
-                  fixed: 'right',
                   label: "操作",
+                  width:"100px",
+                  fixed:"right",
                   align: "center",
                   formatter: this.formatterOption,
                   resizable: false
                 }
               ],
-              searchColumns: [
-                {
-                  prop: "apr_name",
-                  label: "审批单号",
-                  width: '180px',
-                  align: "center"
-                },
-                {
-                  prop: "substituteName",
-                  label: "代发单位名称",
-                  align: "center"
-                },
-                {
-                  prop: "substituteCode",
-                  label: "代发单位编号",
-                  align: "center"
-                },
-                {
-                  prop: "branchOrg",
-                  label: "所属分行",
-                  align: "center"
-                },
-                {
-                  prop: "currentOrg",
-                  label: "所属支行",
-                  align: "center"
-                },
-                {
-                  prop: "type",
-                  label: "变更类型",
-                  align: "center",
-                  formatter: function (row, coloum) {
-                    if (row.type == 1) return "关系所属变更";
-                    else if (row.type == 2) return "团队人员变更";
-                  }
-                },
-                {
-                  prop: "app_reason",
-                  label: "变更原因",
-                  align: "center"
-                },
-                {
-                  prop: "app_state",
-                  label: "申请状态",
-                  align: "center",
-                  formatter: function (row, coloum) {
-                    var h = self.$createElement;
-                    var cfg = { text: "", color: "" };
-                    if (row.app_state == 2) {
-                      cfg = { text: "待审批", color: "#f39700" };
-                    } else if (row.app_state == 3) {
-                      cfg = { text: "同意", color: "#74d980" };
-                    } else if (row.app_state == 4) {
-                      cfg = { text: "拒绝", color: "#f36a77" };
-                    }
-                    return h(
-                      "div",
-                      {
-                        style: { color: cfg.color }
-                      },
-                      cfg.text
-                    );
-                  }
-                },
-                {
-                  prop: "operate",
-                  fixed: 'right',
-                  label: "操作",
-                  align: "center",
-                  formatter: this.formatterOption,
-                  resizable: false
-                }
-              ]
-            },
-            grid: {
-              //grid配置
-              height: "85%",
-              //tooltipEffect: "light",
-              highlightCurrentRow: false,
-              defaultSort: { prop: "", order: "" },
-              columns: [],
               data: []
             },
             pagination: {
               //分页栏配置
+              show:false,
               background: true,
               currentPage: 1,
               pageSize: 10,
@@ -360,7 +306,7 @@ export default {
           //设置总高度
           setMainHeight: function () {
             //this.height = window.screen.availHeight * 0.75 + 'px'
-            this.height = window.screen.availHeight * 0.8 + 'px'
+            this.height = window.screen.availHeight * 0.9 + 'px'
           },
           //toast弹出
           toast: function (text) {
@@ -395,7 +341,7 @@ export default {
                   [
                     iconNode(
                       ["el-icon-check", "iconOpeate"],
-                      { display: row.app_state != 2 ? "none" : "" },
+                      { color:"#00CC81", display: row.app_state != 2 ? "none" : "" },
                       {
                         click: function () {
                           self.formData.approveState = "1";
@@ -405,6 +351,10 @@ export default {
                     )
                   ]
                 ),
+                row.app_state == 2?
+                h("el-divider",{
+                  props:{direction:"vertical"},
+                },""):"",
                 h(
                   "div",
                   {
@@ -414,7 +364,7 @@ export default {
                     row.app_state == 2
                       ? iconNode(
                         ["el-icon-close", "iconOpeate"],
-                        {},
+                        {color:'#FF4C5B'},
                         {
                           click: function () {
                             self.formData.approveState = "2";
@@ -440,7 +390,6 @@ export default {
           searchEvent: function () {
             this.gridType = this.search.value==""?"basciColumns":"searchColumns"
             this.loading = true;
-            this.setColumns();
             this.taskTitle.type = this.gridType;
             this.pagination.currentPage = 1;
             this.getGridData(this.grid, this.pagination);
@@ -468,17 +417,18 @@ export default {
           rowDbClick: function (row, column, event) {
             this.showDiaload(row);
           },
-          //gird切换columns
-          setColumns: function () {
-            this.grid.columns = this.columns[this.gridType];
-          },
           //grid加载数据
           getGridData: function (gridConfig, pageConfig) {
             self.grid.data = [];
+            var len = 30
             this.$nextTick(function () {
               this.grid.showLoading(true);
+              if(len>0){
+                this.$refs.grid.$refs.basciTable.layout.setMaxHeight('90%')
+                this.$refs.grid.$refs.basciTable.layout.setHeight(len*48+50)
+              }
               setTimeout(function () {
-                for (var i = 0; i < 10; i++) {
+                for (var i = 0; i < len; i++) {
                   var data = {
                     type: parseInt(2 * Math.random()) + 1, //1:关系所属变更     2:团队人员变更
                     apr_name: "488934958676900000000000",
@@ -491,7 +441,7 @@ export default {
                     afterOrg: "黄埔分行",
                     app_createdOn: "2010.02.20",
                     apr_approveTime: "2010.02.20",
-                    app_state: parseInt(3 * Math.random()) + 2 //2待审批  3同意  4不同意
+                    app_state: 2  //2待审批  3同意  4不同意
                   };
                   self.grid.data.push(data);
                 }
@@ -505,7 +455,6 @@ export default {
           window.vm=this
         },
         mounted: function () {
-          this.setColumns();
           this.setMainHeight();
           this.getGridData(this.grid, this.pagination);
         }

@@ -31,18 +31,18 @@
 }
 .taskTitle_label {
   font-size: 16px;
-  color: #777777;
+  color: #808695;
   /* font-weight: 600; */
 }
 .untreatedTask {
-  color: #2a2a2a;
+  color: #FF4858;
   font-size: 26px;
   margin-right: 5px;
   margin-top: -10px;
   /* font-weight: 600; */
 }
 .treatedTask {
-  color: #2a2a2a;
+  color: #00CC81;
   font-size: 16px;
   font-weight: 500;
 }
@@ -51,17 +51,25 @@
 .searchBar {
   width: 300px;
 }
+.searchBar .el-input__icon.el-icon-search{
+  font-size: 14px;
+}
 .searchBtn {
-  background-color: #1890ff !important;
+  background-color: #F4F9FE !important;
+  border: 1px solid #1A6BFF !important;
 }
 .searchBtn > span {
-  color: #fff;
+  color: #1A6BFF ;
 }
 
 /* grid child vnode样式 */
 .iconOpeate {
   cursor: pointer;
   font-size: 20px;
+}
+.el-divider--vertical{
+  font-size: 16px;
+  background-color: #E0E4EB
 }
 .el-tooltip__popper.is-light[x-placement^="top"] .popper__arrow {
   border-top-color: #fff;
@@ -80,8 +88,12 @@ body {
 .dialogForm {
   overflow: hidden;
 }
+.dialogForm .title{
+  color: #1D2C4E;
+  font-size: 16px;
+}
 .dialogForm .el-dialog__close {
-  color: #fff !important;
+  color: #1D2C4E !important;
   font-size: 22px;
 }
 .dialogForm .el-dialog {
@@ -89,7 +101,7 @@ body {
   margin-top: 12vh !important;
 }
 .dialogForm .el-dialog__header {
-  background-color: #1890ff;
+  background-color: #E3F0FE;
   color: #fff;
   padding: 15px 20px 10px;
 }
@@ -115,6 +127,11 @@ body {
   font-weight: 700;
   margin-right: 10px;
 }
+.dialogForm .mainForm .code{
+  border:1px solid #E8EAEC;
+  border-radius: 2px;
+  padding: 5px;
+}
 .dialogForm .label {
   font-size: 14px;
   min-width: 70px;
@@ -125,10 +142,10 @@ body {
   text-align: left;
 }
 .dialogForm .contentGray {
-  color: #b3b3b4;
+  color: #808695;
 }
 .dialogForm .contentBlack {
-  color: #2d2d2d;
+  color: #081129;
 }
 .dialogForm .gutter {
   margin-right: 10px;
@@ -137,11 +154,20 @@ body {
   width: 95%;
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px dotted #828282;
+  border-top: 1px solid #E8EAEC;
 }
 
 .dialogForm .el-textarea__inner{
   overflow: hidden;
+  height: 40px;
+}
+.dialogForm .el-button--primary{
+  background-color: #196BFF;
+  border-color: #196BFF 
+}
+.dialogForm .el-button--primary.is-disabled{
+  background-color: #B3B6BD  !important;
+  border-color: #B3B6BD  !important;
 }
 .dialogForm .leftFlexGutter {
   margin-left: 15px;
@@ -178,4 +204,10 @@ body {
   line-height: 45px;
   padding: 0 15px;
   min-width: 100px;
+}
+.el-table{
+  border: 1px solid #EBEEF5;
+}
+.el-table .el-table__row{
+  color:#081129 
 }

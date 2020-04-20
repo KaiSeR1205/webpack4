@@ -31,47 +31,58 @@
   height:30px
 }
 .newNoticCount {
-  color: #2a2a2a;
+  color: #FF4858;
   font-size: 26px;
   margin-right: 5px;
-  margin-top: -13px;
+  margin-top: -8px;
   /* line-height: 30px;   */
 }
 .notic_label {
   /* line-height: 30px; */
-  font-size: 16px;
-  color: #777777;
+  font-size: 14px;
+  color: #808695;
 }
 .applyNotice {
   margin-left: 20px;
-  border: 1px solid #7f7f7f;
-  border-radius: 20px;
+  border: 1px solid #00CC81;
+  border-radius: 2px;
   padding: 0px 15px;
   background-color: #fff;
-  line-height: 35px;
-  height:35px;
-  margin-top: -13px;
+  line-height: 25px;
+  height:25px;
+  margin-top: -5px;
 }
 .applyNotice > .count {
-  color: #2a2a2a;
-  font-size: 20px;
+  color: #00CC81;
+  font-size: 14px;
   margin-right: 3px;
   /* font-weight: 700; */
 }
 .applyNotice > .label {
-  font-size: 15px;
-  color: #777777;
+  font-size: 14px;
+  color: #00CC81;
   /* font-weight: 700; */
 }
 /* 搜索栏样式 */
 .searchBar {
   width: 300px;
 }
+.searchBar .el-input__icon.el-icon-search{
+  font-size: 14px;
+}
+.searchBar .el-input-group__append{
+  border:none
+}
+.searchBar .el-input__inner{
+  margin-top: 1px;
+}
 .searchBtn {
-  background-color: #1890ff !important;
+  border-radius: 0px;
+  background-color: #F4F9FE !important;
+  border: 1px solid #1A6BFF !important;
 }
 .searchBtn > span {
-  color: #fff;
+  color: #1A6BFF ;
 }
 
 /* grid child vnode样式 */
@@ -93,6 +104,12 @@
   right: 0px !important;
 }
 
+.dialogApplying .el-radio-button__orig-radio:checked+.el-radio-button__inner{
+  background-color: #196BFF;
+  border-color: #196BFF;
+  -webkit-box-shadow: -1px 0 0 0 #409EFF;
+  box-shadow: -1px 0 0 0 #196BFF;
+}
 /* 弹出层需要的样式 */
 body {
   padding-right: 0px !important; /*右边不出现滚动条的宽度*/
@@ -196,15 +213,23 @@ body {
 /*进行中的弹出层*/
 .dialogApplying .el-dialog__header {
   padding-top: 10px;
+  background-color: #E3F0FE;
+  color: #fff;
+}
+.dialogApplying .title{
+  font-weight: 500;
+  color: #1D2C4E;
+  font-size: 16px;
 }
 .dialogApplying .el-dialog__close {
+  color: #1D2C4E !important;
   font-size: 22px;
 }
 .dialogApplying .el-dialog__headerbtn {
   top: 10px;
 }
 .dialogApplying .el-dialog__body {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 /* toast样式 */
 .toast {
@@ -238,4 +263,19 @@ body {
   padding: 0;
   height: 40px;
 }
-
+#searchGrid .relationship{
+  border: 1px solid #196BFF;
+  color: #196BFF;
+  border-radius: 2px;
+}
+#searchGrid .team{
+  border: 1px solid #FF980B;
+  color: #FF980B;
+  border-radius: 2px; 
+}
+.el-table{
+  border: 1px solid #EBEEF5;
+}
+.el-table .el-table__row{
+  color:#081129 
+}

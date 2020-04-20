@@ -16,7 +16,6 @@
                     </el-input>
                 </div>
           </div>
-
       </el-header>
 
       <el-container class="orgContainer">
@@ -126,7 +125,6 @@ export default {
                 return o.orgCode == self.orgSearch
             })
             if(node.length>0){
-              debugger;
                 //机构号精准查找
                 this.initTree(self.orgSearch)
             }else{
