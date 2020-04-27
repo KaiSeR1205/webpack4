@@ -7,7 +7,7 @@
                     </el-table-column>
                     <el-table-column label="三方代理分配人均" align="center">
                         <el-table-column prop="sfHigh" label="最高" width="400" align="center" sortable="custom"></el-table-column>
-                        <el-table-column prop="sfLow"  label="最低" width="400"align="center" sortable="custom"></el-table-column>
+                        <el-table-column prop="sfLow"  label="最低" width="400" align="center" sortable="custom"></el-table-column>
                     </el-table-column>
                     <el-table-column label="财富分配人均" header-align="center">
                         <el-table-column prop="cfHigh" width="400" label="最高" align="center" sortable="custom"></el-table-column>

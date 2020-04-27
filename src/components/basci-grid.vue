@@ -527,6 +527,37 @@ export default {
         this.basciConfig.selectRows = this.config.selectRows = [row];
       }
     },
+    checkAllShowOrHide:function(){
+      if (this.basciConfig.selectType == "single") {
+        this.$nextTick(function() {
+          try {
+            var domArr = []
+            var dom = this.$refs[this.basciConfig.ref].$el;
+            //冻结列的情况
+            var fixedDom = dom.getElementsByClassName('el-table__fixed')
+            domArr.push(dom)
+            if(fixedDom.length>0){
+              domArr.push(fixedDom[0])
+            }
+            for(var i=0;i<domArr.length;i++){
+              +function(dom){
+                var checkAll_th = dom.getElementsByTagName("th");
+                if (
+                  checkAll_th.length > 0 &&
+                  checkAll_th[0].getElementsByClassName("el-checkbox").length > 0
+                ) {
+                  checkAll_th[0].getElementsByClassName(
+                    "el-checkbox"
+                  )[0].style.display = "none";
+                }
+              }(domArr[i])
+            }
+          } catch (error) {
+            console.log("checkAll_dom_error:", error);
+          }
+        });
+      }
+    },
     jumpFirst: function() {
       if (this.pagination.currentPage == 1) return;
       this.handleCurrentChange(1);
@@ -582,6 +613,7 @@ export default {
   watch: {
     //由于props 单向传输所以通过监听来满足双向绑定
     "basciConfig.data": function(newValue, oldValue) {
+      this.checkAllShowOrHide()
       this.countTotal(newValue);
 
       this.basciConfig.data = this.config.data = newValue;
@@ -607,6 +639,7 @@ export default {
     },
     //由于props 单向传输所以通过监听来满足双向绑定
     "config.data": function(newValue, oldValue) {
+      this.checkAllShowOrHide()
       this.countTotal(newValue);
       this.basciConfig.data = this.config.data = newValue;
       this.basciConfig.selectRows = this.config.selectRows = [];
@@ -655,24 +688,7 @@ export default {
     },
     //监听单选和多选的配置 如果单选则不显示全选按钮
     "basciConfig.selectType": function(newValue, oldValue) {
-      if (newValue == "single") {
-        this.$nextTick(function() {
-          try {
-            var dom = this.$refs[this.basciConfig.ref].$el;
-            var checkAll_th = dom.getElementsByTagName("th");
-            if (
-              checkAll_th.length > 0 &&
-              checkAll_th[0].getElementsByClassName("el-checkbox").length > 0
-            ) {
-              checkAll_th[0].getElementsByClassName(
-                "el-checkbox"
-              )[0].style.display = "none";
-            }
-          } catch (error) {
-            console.log("checkAll_dom_error:", error);
-          }
-        });
-      }
+      this.checkAllShowOrHide()
     }
   },
   beforeCreate: function() {

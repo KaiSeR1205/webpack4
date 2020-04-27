@@ -69,7 +69,7 @@ export default {
         },
 
         //single(单选) or multiple(多选) 如果不需要复选框  columns 里面不要设置 type=selection 的列
-        selectType: "multiple",
+        selectType: "single",
 
         //选中行是否高亮
         highlightCurrentRow:true,
@@ -111,7 +111,6 @@ export default {
         columns: [
           {
             prop: "id",
-            fixed:"left",
             type: "selection",
             //fixed:'left',    //定位最左边滚动时不会移动
             width: "55px"
@@ -180,6 +179,7 @@ export default {
           {
             label: "formatButton",
             align: "center",
+            fixed:"right",
             minWidth:"200",
             formatter: function(row, columns) {
               return self.formatterButton(self.$createElement,row, columns);
