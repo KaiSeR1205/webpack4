@@ -1,5 +1,8 @@
 <template>
-  <div style="height:100%" :id="basciConfig.ref">
+  <div class="basci-table" :id="basciConfig.ref">
+    <div v-if="basciConfig.refresh.show" :class="['basci-table-refresh',basciConfig.refresh.class]" @click="refreshEvent" >
+      <i :class="[basciConfig.refresh.icon?basciConfig.refresh.icon:'el-icon-refresh']"></i>
+    </div>
     <el-table
       :ref="basciConfig.ref"
       :highlight-current-row="basciConfig.highlightCurrentRow"
@@ -250,6 +253,10 @@ export default {
       this.$refs[this.basciConfig.ref].setCurrentRow();
       this.basciConfig.selectRows = this.config.selectRows = rows;
       this.$emit("select-all", rows);
+    },
+    //刷新事件
+    refreshEvent:function(){
+      this.$emit("refresh", this.basciConfig, this.basciPagination);
     },
     //分页页码变动事件
     handleCurrentChange: function(pageIndex) {
@@ -567,6 +574,7 @@ export default {
         highlightCurrentRow: true,
         width: "100%",
         style: { width: "100%" },
+        refresh:{show:false},
         data: []
       }
     };

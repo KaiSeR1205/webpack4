@@ -102,5 +102,19 @@
   z-index: 100;  
 }
 
+.basci-table{
+  height:100%;
+  position: relative;
+}
+
+.basci-table-refresh{
+  position: absolute;
+  right: 10px;
+  z-index: 9999;
+  color: #fff;
+  font-size: 23px;
+  top: 10px;
+  cursor: pointer;
+}
 
  

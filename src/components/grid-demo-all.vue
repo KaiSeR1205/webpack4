@@ -9,6 +9,7 @@
     @row-dbclick="rowDbClick"
     @sort-change="sortChange"
     @select="selectEvent"
+    @refresh="refreshEvent"
   >
   <!-- <template slot-scope="scope" slot="slotButton"><el-button @click="slotButton_click(scope)">xx</el-button></template> -->
   </basciGrid>
@@ -60,8 +61,12 @@ export default {
 
         ref: "myGrid", //默认ref:basciTable 用来获取 table 组件的所有信息
 
-        //最后一列的后面是否加载刷新图标
-        refresh:true,
+        //刷新图标   事件绑定 $emit refresh
+        refresh:{
+          show:true,                 //默认false
+          icon:"el-icon-refresh",    //默认 el-icon-refresh
+          class:"refreshOver"        //class   非必传
+        },
 
         //single(单选) or multiple(多选) 如果不需要复选框  columns 里面不要设置 type=selection 的列
         selectType: "multiple",
@@ -419,6 +424,30 @@ export default {
     //行记录双击事件
     rowDbClick: function(row, column, event) {
       alert(JSON.stringify(row));
+    },
+    refreshEvent:function(gridConfig, pageConfig){
+      console.log("点击了列表刷新");
+      console.log("当前页:", pageConfig.currentPage);
+      console.log("排序字段:", gridConfig.sort.column);
+      console.log("排序order:", gridConfig.sort.order);
+      gridConfig.data = [];
+      this.$nextTick(function(){gridConfig.showLoading(true)})
+      this.$nextTick(function(){
+        setTimeout(function() {
+          if (pageConfig.currentPage < 15) {
+            for (var i = 0; i < pageConfig.currentPage; i++) {
+              gridConfig.data.push({
+                id: i,
+                date: "2020-04",
+                desc: "那就看你就看就看就看" + i,
+                input: "1234",
+                select: "",
+                status: i % 2 == 0 ? "1" : "2"
+              });
+            }
+          }
+        }, 2000);
+      })
     },
     //排序事件
     sortChange: function(gridConfig, pageConfig) {

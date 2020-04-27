@@ -81,7 +81,7 @@
                   return o.SPDB_OrgCode == self.orgSearch
               })
               if(node.length<=0){
-                //机构名称匹配模糊查找 优先级为机构等级
+                  //机构名称匹配模糊查找 优先级为机构等级
                 node = this.tableTreeData.filter(function(o,i){
                     return o.SPDB_OrgName.indexOf(self.orgSearch)>-1
                 })

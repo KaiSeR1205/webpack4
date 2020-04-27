@@ -6,6 +6,7 @@
       @sort-change="loadData"
       @current-change="loadData"
       @row-dbclick="rowDbClick"
+      @refresh="loadData"
     >
     <!-- <template slot-scope="scope" slot="xx"><el-button @click="slotButton_click(scope)">xx</el-button></template> -->
     </basci-grid>  
@@ -29,6 +30,9 @@ export default {
       grid: {
         height: "90%",
         defaultSort: { prop: "date", order: "descending" },
+        refresh:{
+          show:true
+        },
         columns: [
           {
             prop: "date",
@@ -50,7 +54,8 @@ export default {
       pagination: {
         currentPage: 1,
         pageSize: 20,
-        layout: "prev, slot, next",
+        layout: "prev, pager, next",
+        total:1000
       }
     };
   },
@@ -63,25 +68,29 @@ export default {
       console.log("当前页:", pageConfig.currentPage);
       console.log("排序字段:", gridConfig.sort.column);
       console.log("排序order:", gridConfig.sort.order);
-      setTimeout(function() {
-        gridConfig.data = [];
-        if (pageConfig.currentPage < 90) {
-          for (var i = 0; i < pageConfig.currentPage; i++) {
-            gridConfig.data.push({
-              id: i,
-              date: "2020-04",
-              desc: "那就看你就看就看就看" + i,
-              qu:"大伤脑筋健康的数据库",
-              address:"迦南科技电视剧的时间里"
+      gridConfig.data = [];
+      this.$nextTick(function(){gridConfig.showLoading(true)})
+      this.$nextTick(function(){
+        setTimeout(function() {
+          if (pageConfig.currentPage < 90) {
+            for (var i = 0; i < pageConfig.currentPage; i++) {
+              gridConfig.data.push({
+                id: i,
+                date: "2020-04",
+                desc: "那就看你就看就看就看" + i,
+                qu:"大伤脑筋健康的数据库",
+                address:"迦南科技电视剧的时间里"
+              });
+            }
+            self.$nextTick(function() {
+              gridConfig.data = gridConfig.data.sort(function(a, b) {
+                return a.id - b.id;
+              });
             });
           }
-          self.$nextTick(function() {
-            gridConfig.data = gridConfig.data.sort(function(a, b) {
-              return a.id - b.id;
-            });
-          });
-        }
-      }, 2000);
+        }, 2000);
+      })
+
     },
     //行记录双击事件
     rowDbClick: function(row, column, event) {
