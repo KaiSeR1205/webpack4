@@ -1,8 +1,5 @@
 <template>
   <div style="height:100%">
-    <transition name="el-fade-in">
-      <div class="toast" v-show="toastCfg.show">{{toastCfg.text}}</div>
-    </transition>
     <basci-grid
       ref="basciGrid"
       :config="grid"
@@ -27,7 +24,7 @@
         <el-table-column prop="address" label="地址" width="200"></el-table-column>
         <el-table-column prop="opetion" label="操作" class-name="xx" width="120">
           <template slot-scope="scope">
-            <span v-show="!scope.row.hover.show">{{scope.row.opetion}}</span>
+            <div style="height:24px" v-show="!scope.row.hover.show">{{scope.row.opetion}}</div>
             <div v-show="scope.row.hover.show">
               <i style="font-size:20px" class="el-icon-check" @click="checkIconClick(scope.row)"></i>
               <i style="font-size:20px" class="el-icon-close" @click="closeIconClick(scope.row)"></i>
@@ -55,7 +52,7 @@
           <el-input v-model.number="ruleForm.age"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">提交</el-button>
+          <el-button type="primary" @click="$toast('提交成功')">提交</el-button>
           <el-button>重置</el-button>
         </el-form-item>
       </el-form>
@@ -65,14 +62,12 @@
 
 <script>
 import "css/basci-grid.css";
-import PerfectScrollbar from "perfect-scrollbar";
 import basciGrid from "@/basci-grid.vue";
 var self = {};
 export default {
   name: "grid",
   components: {
-    basciGrid,
-    PerfectScrollbar
+    basciGrid
   },
   data: function() {
     var checkAge = (rule, value, callback) => {
@@ -111,10 +106,6 @@ export default {
       }
     };
     return {
-      toastCfg:{
-        show:false,
-        text: "操作成功"
-      },
       dialogFormVisible: false,
       ruleForm: {
         pass: "",
@@ -218,19 +209,11 @@ export default {
     };
   },
   methods: {
-    toast:function(text){
-      var self = this
-      this.toastCfg.show = true
-      this.toastCfg.text = text  
-      setTimeout(function() {
-        self.toastCfg.show = false
-      }, 1500);
-    },
     checkIconClick: function(row) {
-      this.toast("点击了checkIcon")
+      this.$toast("点击了checkIcon")
     },
     closeIconClick: function(row) {
-      this.toast("点击了closeIcon")
+      this.$toast("点击了closeIcon")
     },
     cellMouseEnter: function(row, column, cell, event) {
       if (column.property == "opetion") {
@@ -255,7 +238,7 @@ export default {
             placement: "top",
             effect: "light",
             openDelay: 400,
-            value:true
+            value:false
           }
         },
         [h("div", {}, row.desc)]
@@ -318,26 +301,7 @@ export default {
   border-color: #fff;
   box-shadow: 0px 4px 8px 0px #e5e5e5;
 }
-.toast {
-  position: fixed;
-  z-index: 9999;
-  left: 50%;
-  top: 45%;
-  transition: all 1.5s;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  text-align: center;
-  border-radius: 5px;
-  color: #fff;
-  background: rgba(17, 17, 17, 0.7);
-  height: 45px;
-  line-height: 45px;
-  padding: 0 15px;
-  max-width: 150px;
-}
+
 .xx{
   color: red;
 }
