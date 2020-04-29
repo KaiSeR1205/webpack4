@@ -137,6 +137,12 @@ const router = new Router({
       meta:{keepAlive:true}
     },
     {
+      path: '/integral',
+      name: 'integral',
+      component: () => import('@/work/integral'),
+      meta:{keepAlive:true}
+    },
+    {
       path: '/test',
       name: 'test',
       component: () => import('@/work/test'),

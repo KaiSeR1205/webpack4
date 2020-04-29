@@ -112,6 +112,11 @@ export default {
             name: "allToDoTask",
             desc: "allToDoTask",
             router: "allToDoTask"
+          },
+          {
+            name: "integral",
+            desc: "integral",
+            router: "integral"
           }
         ]
       },
