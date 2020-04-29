@@ -9,6 +9,7 @@
       :row-class-name="rowClassName"
       :cell-class-name="basciConfig.cellClassName"
       :span-method="basciConfig.spanMethod"
+      :size="basciConfig.size"
       :stripe="basciConfig.stripe"
       :empty-text="basciConfig.emptyText"
       :tooltip-effect="basciConfig.tooltipEffect"
