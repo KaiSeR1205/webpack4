@@ -39,10 +39,11 @@ const config = {
         messages: [`项目运行在: http://localhost:${port}`],
       }
     }),
-　　  new MiniCssExtractPlugin({
-  　　       filename: "css/[name].[contenthash].css",
-            chunkFilename: "css/[name].[contenthash].css",
-　　 })
+    //并不好用 重名样式多出使用 会覆盖
+    // new MiniCssExtractPlugin({
+    // filename: "css/[name].[contenthash].css",
+    //   chunkFilename: "css/[name].[contenthash].css",
+    // })
   ],
   resolve: {
     extensions: ['.js', '.vue', '.json'], // 自动添加文件后缀
@@ -82,13 +83,15 @@ const config = {
       {
         test: /\.css$/,
     　　 use: [
-    　　    process.env.NODE_ENV!=="production"?"vue-style-loader":
-            {
-              loader: MiniCssExtractPlugin.loader,
-                  options: {
-                      publicPath: '../'
-                  }
-            },
+    //并不好用 重名样式多出使用 会覆盖
+    // 　process.env.NODE_ENV!=="production"?"vue-style-loader":
+    //   {
+    //     loader: MiniCssExtractPlugin.loader,
+    //     options: {
+    //        publicPath: '../'
+    //     }
+    //   },
+          "vue-style-loader",
   　　 　　 "css-loader"
       　]
       },
