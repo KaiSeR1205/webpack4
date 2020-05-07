@@ -187,7 +187,6 @@
                 }
             },
             rowDbClicl: function (row, column, event) {
-                debugger;
                 var categoryNo = row.SPDB_CategoryNo,
                     store = this.$refs.tableTree.store
                 //如果是打开状态 关闭节点 同时关闭子节点

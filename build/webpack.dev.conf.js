@@ -1,5 +1,6 @@
-let { smart } = require('webpack-merge');
+let merge = require('webpack-merge');
 let base = require('./webpack.base.conf');
+const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
 const path = require('path')
 
 const devObj = {
@@ -14,7 +15,7 @@ const devObj = {
   }
 }
 
-module.exports = smart(base, {
+module.exports = merge(base, {
   mode: 'development',
   devtool: '#eval-source-map',
   devServer: {
@@ -36,4 +37,11 @@ module.exports = smart(base, {
       ],
     },
   },
+  plugins: [
+    new SkeletonWebpackPlugin({
+      webpackConfig: require('./webpack.skeleton.conf'),
+      quiet: true,
+      minimize: true
+    })
+  ]
 })
