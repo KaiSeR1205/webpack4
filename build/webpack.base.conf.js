@@ -39,7 +39,7 @@ const config = {
         messages: [`项目运行在: http://localhost:${port}`],
       }
     }),
-    //并不好用 重名样式多出使用 会覆盖
+    //并不好用 重名样式多处使用 会覆盖
     // new MiniCssExtractPlugin({
     // filename: "css/[name].[contenthash].css",
     //   chunkFilename: "css/[name].[contenthash].css",
@@ -83,7 +83,7 @@ const config = {
       {
         test: /\.css$/,
     　　 use: [
-    //并不好用 重名样式多出使用 会覆盖
+    //并不好用 重名样式多处使用 会覆盖
     // 　process.env.NODE_ENV!=="production"?"vue-style-loader":
     //   {
     //     loader: MiniCssExtractPlugin.loader,
