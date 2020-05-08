@@ -291,7 +291,8 @@ module.exports = function evalDOM() {
           }).startDraw();
           document.getElementById('convertApp').style.display="none"
           setTimeout(() => {
-            document.getElementById('mySkeleton').remove()
+            var node = document.getElementById('mySkeleton')
+            node.parentNode.removeChild(node);
             resolve(html);
           }, 1000);
           

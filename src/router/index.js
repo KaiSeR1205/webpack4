@@ -159,9 +159,9 @@ const router = new Router({
 
 router.afterEach((to, from, next) => {
   //路由跳转的时候关闭所有前一个页面的弹出层
-  document.querySelectorAll('.v-modal').forEach((o,i)=>{
-    o.remove()
-  })
+  for(var i=0,nodes=document.querySelectorAll('.v-modal');i<nodes.length;i++){
+    nodes[i].parentNode.removeChild(nodes[i]);
+  }
   //加载骨架
   if((to.fullPath =="/" && from.fullPath =="/")||to.fullPath!=="/"){
     document.getElementById('convertApp').style.display=""
