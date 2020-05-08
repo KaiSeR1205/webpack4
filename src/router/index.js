@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+const createSkeletonHTML = require('js/evalDOM.js')
 Vue.use(Router)
 const router = new Router({
   mode: 'history',
@@ -150,6 +150,33 @@ const router = new Router({
     }
   ],
 })
+
+//router.beforeEach    路由跳转前执行
+
+//router.beforeResolve  vue2.5新增  导航被确认之前，同时在所有组件内守卫和异步路由组件被解析之后， 解析守卫就被调用     
+
+//router.afterEach     路由跳转后执行
+
+router.afterEach((to, from, next) => {
+  //路由跳转的时候关闭所有前一个页面的弹出层
+  document.querySelectorAll('.v-modal').forEach((o,i)=>{
+    o.remove()
+  })
+  //加载骨架
+  if((to.fullPath =="/" && from.fullPath =="/")||to.fullPath!=="/"){
+    document.getElementById('convertApp').style.display=""
+    createSkeletonHTML({
+      background: '#eee',
+      animation: 'opacity 1s linear infinite;'
+    }).then(skeletonHTML => {
+      document.getElementById('convertApp').style.display="none"
+    }).catch(e => {
+        console.error(e)
+    }) 
+  }
+})
+
+
 
 export default router
 

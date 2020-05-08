@@ -35,7 +35,6 @@ export default {
   },
   watch:{
     msg(){
-      debugger;
       if(this.$store.state.vmArr['index'].msg!=""){
         this,msg = this.$store.state.vmArr['index'].msg
       }

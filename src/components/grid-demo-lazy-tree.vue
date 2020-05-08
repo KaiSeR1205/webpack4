@@ -52,20 +52,19 @@
       load(tree, treeNode, resolve) {
         if(tree.id==3){
             setTimeout(() => {
-                debugger;
-            resolve([
-                {
-                id: 31,
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                id: 32,
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-                }
-            ])
+              resolve([
+                  {
+                  id: 31,
+                  date: '2016-05-01',
+                  name: '王小虎',
+                  address: '上海市普陀区金沙江路 1519 弄'
+                  }, {
+                  id: 32,
+                  date: '2016-05-01',
+                  name: '王小虎',
+                  address: '上海市普陀区金沙江路 1519 弄'
+                  }
+              ])
             }, 1000)
         }else{
             resolve([])

@@ -137,7 +137,6 @@ export default {
     self = this;
   },
   mounted: function() {
-      debugger;
     this.setGridConfig()
     // this.grid.data.push({
     //   id: 0,

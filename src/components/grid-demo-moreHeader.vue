@@ -113,7 +113,6 @@ import "css/basci-grid.css";
     },
     methods:{
           headerColumsRepair: function() {
-            debugger;
             var el = this.$refs.moreHead.$el;
             var headColums = el.getElementsByClassName("is-leaf");
             if (headColums.length > 0) {

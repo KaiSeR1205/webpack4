@@ -154,7 +154,6 @@ export default {
       }
     },
     rowClick: function(obj) {
-      debugger;
       this.currentRow = obj;
     },
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
