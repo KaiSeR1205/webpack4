@@ -117,7 +117,17 @@ export default {
             name: "integral",
             desc: "integral",
             router: "integral"
-          }
+          },
+          {
+            name: "ellipsis-tooltip",
+            desc: "优化el-tooltip 添加 ellipsis 时才提示",
+            router: "tooltip"
+          },
+          {
+            name:"multiple-select",
+            desc:"multiple-select 自定义组件",
+            router:"multiple-select"
+          }        
         ]
       },
       pagination: {
@@ -153,7 +163,7 @@ export default {
     },
   },
   mounted: function() {
-
+ window.vm = this;
   },
   beforeCreate(){
     self = this

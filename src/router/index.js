@@ -143,9 +143,15 @@ const router = new Router({
       meta:{keepAlive:true}
     },
     {
-      path: '/test',
-      name: 'test',
-      component: () => import('@/work/test'),
+      path: '/ellipsis-tooltip',
+      name: 'ellipsis-tooltip',
+      component: () => import('@/tooltip'),
+      meta:{keepAlive:true}
+    },
+    {
+      path: '/multiple-select',
+      name: 'multiple-select',
+      component: () => import('@/multiple-select'),
       meta:{keepAlive:true}
     }
   ],

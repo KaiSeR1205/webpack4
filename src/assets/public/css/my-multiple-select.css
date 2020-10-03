@@ -1,0 +1,71 @@
+.pop{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    border: 1px solid #AAAAAA;
+    height:25px;
+    z-index: 3000;
+    font-size: 12px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding-left: 5px;
+}
+.pop .checkedValue{
+    width: calc(100% - 20px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.my-mutiple-select .checkbox_container{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.my-mutiple-select .checkbox_row{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    word-break: keep-all;
+    margin-bottom: 5px;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    -webkit-align-items: baseline;
+    align-items: baseline;
+}
+.my-mutiple-select.el-popover{
+    z-index: 3000
+}
+.my-mutiple-select{
+    z-index: 3000;
+    margin-top: 0px !important;
+    border-color: #AAAAAA;
+}
+.my-mutiple-select .el-scrollbar__bar.is-vertical .el-scrollbar__thumb:after {
+    width: 4px;
+    border-radius:inherit;
+    border: 1px solid #c7c7ca;
+    content: "";
+    background-color: #c7c7ca;
+    display: inline-block;
+    height: 100%;
+    min-height: 30px;
+}
+
+.my-mutiple-select .top:after {
+    position: absolute;
+    top: 0px
+}
+
+.my-mutiple-select .bottom:after {
+    position: absolute;
+    bottom: 0px
+}
