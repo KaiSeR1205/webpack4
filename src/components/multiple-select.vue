@@ -1,6 +1,6 @@
 <template>
     <div style="margin:10px 0 0 30px">
-        <myMultipleSelect ref="mtp" label="label" width="250px" :data="mtpSelData" eight="250px" @onSearch="onSearch"></myMultipleSelect>
+        <myMultipleSelect ref="mtp" label="label" width="250px" :data="mtpSelData" height="250px" @mtpsearch="onSearch"></myMultipleSelect>
         <div style="margin-top:30px"><el-button @click="getSelectedData" size="mini" type="primary">获取选中的值</el-button></div>
     </div>
 </template>
