@@ -223,3 +223,36 @@ function isExternal(path) {
     const reg2 = /^rtsp:\/\/([a-z]{0,10}:.{0,10}@)?(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\//
     return reg.test(str) || reg1.test(str) || reg2.test(str)
   }
+
+  /**
+   * @description 数据分组统计    
+   * @param data {Array} 必输             元数据  
+   * @param groupItems {Array} 必输       需要分组的字段 如['字段1','字段2'] 
+   * @param sumItem {Array} 必输          需要统计的字段 如['字段3','字段4'] 
+   * @param childAlias {string} 非必输    组内子集别名
+   * @returns {Array}
+   */
+  function groupby_sum(data,groupItems,sumItem,childAlias){
+    childAlias = childAlias||null
+    var obj = {},
+    groupId_key = groupItems.join(',')+'_groupId_'+Math.ceil(Math.random()*10)
+    return data.reduce(function(c,n){
+        var rule = JSON.stringify(groupItems.map(function(o,i){return n[o]}))
+        if(obj[rule]){
+            c.find(function(o,i){
+                if(o[groupId_key] === rule){
+                    sumItem.forEach(function(x,y){obj[rule][x] += Number(isNaN(n[x])?0:n[x]) })
+                    childAlias?obj[rule][childAlias].push(n):""
+                } 
+            })
+        }else{
+            obj[rule] ={}
+            obj[rule][groupId_key] = rule
+            childAlias?obj[rule][childAlias] = [].concat(n):""
+            groupItems.forEach(function(o,i){obj[rule][o] = n[o]})
+            sumItem.forEach(function(o,i){obj[rule][o] = Number(isNaN(n[o])?0:n[o]) })
+            c.push(obj[rule])
+        }
+        return c
+    },[]).map(function(o,i){delete o[groupId_key];return o})  
+  }

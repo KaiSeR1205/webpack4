@@ -2,29 +2,30 @@
 <div>
     <div v-show="visible" @click="visible=false" class="el-dialog__wrapper" style="z-index: 2000;"></div>
     <div :style="{width:width}">
-        <el-popover
+        <!-- <el-popover
             placement="bottom-start"
             :width="getPopoverWith()"
             v-model="visible"
             :visible-arrow="visibleArrow"
             popper-class="my-mutiple-select"
-            trigger="manual">
-            <div>
-                <div style="margin-bottom:5px"><el-input clearable v-model="searchText" @input="searchEvent" size="mini"></el-input></div>
-                
-                <el-scrollbar ref="mtpSelScrollbar" :style="{height:height,width:'100%'}" :wrap-style="{height:height,width:'100%'}">
-                <div v-if="checkData.length>0"  class="checkbox_container">
-                    <div class="checkbox_row" @click="allCheckEvent"><input :checked="checkedAll" type="checkbox" style="margin-right:5px"><span>全选</span></div>
-                    <div class="checkbox_row" @click="getCheckValue(o)" v-for="(o,i) in checkData" :key="i"><input  :checked="o.checked" type="checkbox" style="margin-right:5px"><span>{{o[label]}}</span></div>
+            trigger="manual"> -->
+            <div class="my-mutiple-select">
+                <div @click="visible=!visible" class="pop">
+                    <div class="checkedValue">{{checkValue}}</div>
+                    <div><i style="font-size:12px" :class="visible?'el-icon-arrow-up':'el-icon-arrow-down'"></i></div>
                 </div>
-                 <div v-else style="text-align:center">无更多数据</div>    
-                </el-scrollbar>
+                <div class="container" v-show="visible">
+                    <div style="margin-bottom:5px"><el-input clearable v-model="searchText" @input="searchEvent" size="mini"></el-input></div>
+                    <el-scrollbar ref="mtpSelScrollbar" :style="{height:height,width:'100%'}" :wrap-style="{height:height,width:'100%'}">
+                    <div v-if="checkData.length>0"  class="checkbox_container">
+                        <div class="checkbox_row" @click="allCheckEvent"><input :checked="checkedAll" type="checkbox" style="margin-right:5px"><span>全选</span></div>
+                        <div class="checkbox_row" @click="getCheckValue(o)" v-for="(o,i) in checkData" :key="i"><input  :checked="o.checked" type="checkbox" style="margin-right:5px"><span>{{o[label]}}</span></div>
+                    </div>
+                    <div v-else style="text-align:center">无更多数据</div>    
+                    </el-scrollbar>
+                </div>
             </div>
-            <div @click="visible=!visible" class="pop" slot="reference">
-                <div class="checkedValue">{{checkValue}}</div>
-                <div><i style="font-size:12px" :class="visible?'el-icon-arrow-up':'el-icon-arrow-down'"></i></div>
-            </div>
-        </el-popover>
+        <!-- </el-popover> -->
     </div>
 </div>
 </template>
@@ -96,9 +97,11 @@ export default {
     
             },
             getSelectedData:function(){
-                return this.checkData.filter(function(o){
+                var data = this.checkData.filter(function(o){
                     return o.checked
                 })
+                console.log(data.length)
+                return data
             },
             getPopoverWith:function(){
                 return (parseInt(this.width.replace('px','')) - 10)
@@ -135,16 +138,17 @@ export default {
                     if(this.checkData.length>100){
                         setTimeout(() => {
                             for(let i=10,o,flag= _this.checkedAll;o=_this.checkData[i++];){
-                                console.log('z'+i)
+                                //console.log('z'+i)
                                 o.checked = flag
                                 if(flag){
                                     tmp.push(o[_this.label])
                                 }                      
-                            }                         
+                            }
+                            _this.checkValue = tmp.join(', ')                         
                         }, 500);
 
                         for(var i=0;i<=10;i++){
-                            console.log('y'+i)
+                           // console.log('y'+i)
                             let o=_this.checkData[i],
                                 flag = _this.checkedAll
                             o.checked = flag
@@ -152,7 +156,7 @@ export default {
                                 tmp.push(o[_this.label])
                             }                      
                         }
-                        
+                         _this.checkValue = tmp.join(', ')
                     }else{
                         this.checkData.forEach((o)=>{
                             o.checked = _this.checkedAll
@@ -162,7 +166,10 @@ export default {
                         })
                         _this.checkValue = tmp.join(', ')
                     }
+
+                    console.log(_this.checkValue)
                 })
+                
             }
         },
         mounted:function(){
