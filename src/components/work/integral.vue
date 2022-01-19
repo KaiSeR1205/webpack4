@@ -123,6 +123,11 @@
                 targetNode = this.tableTreeData.filter(function (o, i) {
                     return o.SPDB_CategoryNo == self.orgSearch
                 })
+                if(targetNode.length==0){
+                    targetNode = this.tableTreeData.filter(function (o, i) {
+                        return o.SPDB_CategoryName == self.orgSearch
+                    }) 
+                }
                 if (targetNode.length > 0) {
                     nodeArr = this.getNodeParentArr(targetNode[0])
                     nodeArr.forEach(function (o, i) {

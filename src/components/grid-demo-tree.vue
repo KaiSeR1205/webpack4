@@ -78,12 +78,12 @@
               var node = []
               //先按照机构号在内存里精准筛选 如果没找到则用机构名称匹配查找 
               node = this.tableTreeData.filter(function(o,i){
-                  return o.SPDB_OrgCode == self.orgSearch
+                  return o.SPDB_OrgCode.toLowerCase() == self.orgSearch.toLowerCase()
               })
               if(node.length<=0){
                   //机构名称匹配模糊查找 优先级为机构等级
                 node = this.tableTreeData.filter(function(o,i){
-                    return o.SPDB_OrgName.indexOf(self.orgSearch)>-1
+                    return o.SPDB_OrgName.toLowerCase().indexOf(self.orgSearch.toLowerCase())>-1
                 })
               }
               if(node.length>0){
