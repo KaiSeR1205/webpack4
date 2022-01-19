@@ -127,6 +127,11 @@ export default {
             name:"multiple-select",
             desc:"multiple-select 自定义组件",
             router:"multiple-select"
+          }  ,
+          {
+            name:"tab",
+            desc:"全局混入给tab添加el-tooltip效果",
+            router:"tabs"
           }        
         ]
       },

@@ -153,6 +153,11 @@ const router = new Router({
       name: 'multiple-select',
       component: () => import('@/multiple-select'),
       meta:{keepAlive:true}
+    },{
+      path: '/tabs',
+      name: 'tabs',
+      component: () => import('@/tabs'),
+      meta:{keepAlive:true}
     }
   ],
 })
